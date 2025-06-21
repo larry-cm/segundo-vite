@@ -1,0 +1,48 @@
+@import 'tailwindcss';
+:root{
+  --count-size:2;
+}
+@theme {
+  --font-display:'Segoe Ui';
+  --color-fondo:#030712;
+  --color-primary:#18a2ff;
+  --color-secondary:#0099ff;
+  --color-text:#eee;
+  --color-text-hover:#ccc;
+}
+@layer utilities{
+  body{
+    background-color: var(--color-fondo);
+    color:var(--color-primary)
+  }
+}
+.content-column{
+  column-count: var(--count-size);
+}
+/* sm: desde 640px en adelante */
+@media (min-width: 640px) {
+ :root{
+  --count-size:2;
+}
+}
+
+/* md: desde 768px en adelante */
+@media (min-width: 768px) {
+  :root{
+  --count-size:3;
+}
+}
+
+/* lg: desde 1024px en adelante */
+@media (min-width: 1024px) {
+   :root{
+  --count-size:4;
+}
+}
+
+/* xl: desde 1280px en adelante */
+@media (min-width: 1280px) {
+   :root{
+  --count-size:4;
+}
+}
