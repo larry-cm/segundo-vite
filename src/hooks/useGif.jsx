@@ -1,25 +1,25 @@
 import { useContext, useEffect, useState } from 'react';
 import { apiObGif } from '../services/apiGetGif';
-import GifContext from '../context/GifContext'
+import GifContext from '../context/GifContext';
 
-export default function useGif ({ keyword } = { keyword: null }) {
+export default function useGif({ keyword } = { keyword: null }) {
 
-  const [loading, setLoading] = useState(false)
-  const { gif, updateGif, mode } = useContext(GifContext)
+  const [loading, setLoading] = useState(false);
+  const { gif, updateGif, mode } = useContext(GifContext);
 
   useEffect(function () {
-    setLoading(true)
+    setLoading(true);
 
-    const keywordToUse = keyword ?? localStorage.getItem('lastKeyword') ?? 'random'
-    const modeToUse = mode || localStorage.getItem('lastMode') || 'gifs'
+    const keywordToUse = keyword || localStorage.getItem('lastKeyword') || 'random';
+    const modeToUse = mode || localStorage.getItem('lastMode') || 'gifs';
 
     apiObGif({ keyword: keywordToUse, mode: modeToUse })
       .then(res => {
-        setLoading(false)
+        setLoading(false);
         updateGif(res);
-        localStorage.setItem('lastKeyword', keywordToUse)
+        localStorage.setItem('lastKeyword', keyword);
       });
   }, [keyword, updateGif, mode]);
 
-  return { loading, gif, mode }
+  return { loading, gif, mode };
 }

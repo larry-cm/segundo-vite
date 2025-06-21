@@ -9,13 +9,13 @@ claro como  nos parezca
 
 Tenemos solo dos modos activos ahora.
 
-- 🦄 Gifs :
+- 🦄 Gifs:
   - Emoji
   - Random
   - Search
   - Trending
 
-- ⭐ Stickers :
+- ⭐ Stickers:
   - Random
   - Search
   - Trending
