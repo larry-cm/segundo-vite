@@ -1,27 +1,20 @@
-import { Link, } from "wouter"
-export default function Gif ({ title, id, url, span, span1 }) {
+import { Link } from 'wouter'
+import AvisoGif from '@/components/Gif/AvisoGif'
+import { ClipboardCheck } from 'lucide-react'
+export default function Gif ({ title, id, url, hash, frames, classAdd, animateCopyLink, animateDownload }) {
+  return (
+    <Link
+      to={`/gif/${id}`}
+      className={` flex relative ${classAdd ?? 'size-full min-h-32 '}`}
 
-    return (
-        <> <Link to={`/gif/${id}`}
-            className='h-fit w-full flex'
-        >
-            <picture className='h-fit w-full relative'>
-                <img src={url} className='object-cover h-fit w-full' />
-                <span className='sr-only'>Imagen para de gif para mirar sus propiedades</span>
-                <p className='absolute bg-fondo/80 top-0 w-fit left-0 '>
-                    {title}
-                    {/* {span} */}
-                    {/* {span1} */}
-                </p>
-                <div>
+    >
+      <img src={url} className={`object-cover size-full rounded ${classAdd ? '' : 'rounded-b-none'}`} />
+      <span className='sr-only'>Imagen para de gif para mirar sus propiedades</span>
 
-                </div>
-            </picture>
+      <AvisoGif stateAviso={animateCopyLink} textMostrar='Enlace copiado!' Icon={ClipboardCheck} />
+      <AvisoGif stateAviso={animateDownload} textMostrar='Descarga realizada!' />
 
-
-        </Link>
-
-        </>
-    )
-
+      <div />
+    </Link>
+  )
 }

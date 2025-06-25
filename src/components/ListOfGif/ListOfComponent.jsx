@@ -1,19 +1,29 @@
-import Gif from '../Gif/Gif'
-export default function ListOfComponent ({ gif }) {
-    return (
-        <section className='space-y-4 gap-4 content-column' >
-            {
-                gif?.map(({ id, url, title, frames, hash }) =>
-                    <Gif
-                        id={id}
-                        key={id}
-                        span={frames}
-                        span1={hash}
-                        title={title}
-                        url={url}
-                    />
-                )
-            }
-        </section >
-    )
+import CardVistas from './CardVistas'
+
+export default function ListOfComponent ({ gif, currentSearch = '' }) {
+  return (
+    <>
+      {
+        currentSearch && (
+          <h2 className='text-text text-2xl font-medium mb-6 capitalize'>
+            {currentSearch}
+          </h2>
+        )
+      }
+      <section className='content-column min-h-[70vh]'>
+        {
+          gif?.map(({ id, url, title, frames, hash, userInfo, username }, index) =>
+            <CardVistas
+              key={`${id}-${hash}-${index}`}
+              id={id}
+              frames={frames}
+              hash={hash}
+              title={title}
+              url={url}
+            />
+          )
+        }
+      </section>
+    </>
+  )
 }
