@@ -4,7 +4,8 @@ import GifContext from '@/context/GifContext'
 import { apiObSingleGif } from '@/services/ApiGetGifId'
 export default function useSingleGif ({ id }) {
   const lastGiftsObserver = { gif: JSON.parse(globalThis.localStorage.getItem('lastGifObserver') || '[]') }
-  const defineGif = useContext(GifContext).gif.length ? useContext(GifContext) : lastGiftsObserver
+  const gifContextValue = useContext(GifContext)
+  const defineGif = gifContextValue.gif.length ? gifContextValue : lastGiftsObserver
   const { gif } = defineGif
   const fromCacheGif = gif?.find(singleGif => singleGif?.id === id)
 

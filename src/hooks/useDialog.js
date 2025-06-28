@@ -14,8 +14,8 @@ export default function useDialog () {
       dialog.classList.remove('dialogDown')
       dialog.close()
     }
-    if (dialog.current?.open) {
-      dialog.current.classList.remove('dialogUp')
+    if (dialog && dialog.open) {
+      dialog.classList.remove('dialogUp')
     }
   }
 
