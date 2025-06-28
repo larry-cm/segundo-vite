@@ -4,38 +4,46 @@ import GifContext from '@/context/GifContext'
 
 const INITIAL_PAGE = 0
 
-export default function useGif ({ keyword, id } = { keyword: null, id: null }) {
+export default function useGif ({ keyword, id, rating, mode, lang } = { keyword: null, id: null }) {
   const [loading, setLoading] = useState(false)
   const [loadingNextPage, setLoadingNextPage] = useState(false)
   const [page, setPage] = useState(INITIAL_PAGE)
-  const { gif, updateGif, mode } = useContext(GifContext)
-  const [finalPage, setFilanPage] = useState(false)
-  const keywordToUse = keyword || window.localStorage.getItem('lastKeyword') || 'random'
-  const modeToUse = mode || window.localStorage.getItem('lastMode') || 'gifs'
+  const { gif, updateGif } = useContext(GifContext) || {}
+  const [finalPage, setFinalPage] = useState(false)
+
+  const lastKeywords = JSON.parse(window.localStorage.getItem('lastKeyword')) || []
+  const keywordToUse = keyword || lastKeywords[0] || 'random'
+  // const modeToUse = mode || window.localStorage.getItem('lastMode') || 'gifs'
 
   useEffect(function () {
     setLoading(true)
 
-    apiObGif({ keyword: keywordToUse, mode: modeToUse })
+    apiObGif({ keyword: keywordToUse, mode, rating, lang })
       .then(res => {
         setLoading(false)
         updateGif(res)
+        if (!res.length) return
+        if (keywordToUse !== 'random' && keyword) {
+          const newKeywords = [keywordToUse, ...lastKeywords]
+            .filter((e, i, arr) => arr.indexOf(e) === i)
+            .slice(0, 3)
+          window.localStorage.setItem('lastKeyword', JSON.stringify(newKeywords))
+        }
         window.localStorage.setItem('lastGifObserver', JSON.stringify(res))
-        window.localStorage.setItem('lastKeyword', keywordToUse)
       })
-  }, [keyword, mode])
+      .catch(e => console.error(e))
+  }, [keyword, mode, rating, lang])
 
   useEffect(() => {
-    if (page === INITIAL_PAGE || loadingNextPage) return undefined
+    if (page === INITIAL_PAGE || loadingNextPage || finalPage) return undefined
     setLoadingNextPage(true)
-    apiObGif({ keyword: keywordToUse, mode: modeToUse, page })
+    apiObGif({ keyword: keywordToUse, mode, page, rating, lang })
       .then(nextGifts => {
-        updateGif(prev => {
-          if (prev.length === prev.concat(nextGifts).length) return prev
-
-          // (prev.length === prev.concat(nextGifts).length) && setFilanPage(true)
-          return prev.concat(nextGifts)
-        })
+        if (gif.length === gif.concat(nextGifts).length) setFinalPage(true)
+        else {
+          updateGif(prev => prev.concat(nextGifts))
+          setFinalPage(false)
+        }
         setLoadingNextPage(false)
       })
       .catch(e => console.error(e))

@@ -1,18 +1,21 @@
-import { useState } from 'react'
+import React, { useState } from 'react'
 import { VerifiedIcon, Info, Globe, Code } from 'lucide-react'
-import BtnDialog from '@/components/Details/GifInfo/BtnDialog'
-import EmbedShare from '@/components/Details/GifInfo/EmbedShare'
-import InfoGlobs from '@/components/Details/GifInfo/InfoGlobs'
+import BtnDialog from '@/components/Details/GifInfo/InfoCreador/BtnDialog'
+import EmbedShare from '@/components/Details/GifInfo/InfoCreador/EmbedShare'
+import InfoGlobs from '@/components/Details/GifInfo/InfoCreador/InfoGlobs'
 
 export function HeaderCreador ({
   username,
-  viewName,
-  isVerified,
-  avatarUrl,
-  instaUrl,
-  webUrl,
-  description = ''
+  userInfo = {}
 }) {
+  const {
+    viewName,
+    isVerified,
+    avatarUrl,
+    instaUrl,
+    webUrl,
+    description
+  } = userInfo
   const [open, setOpen] = useState(false)
   const itDescription = description.indexOf('. ') !== -1
     ? description.indexOf('. ')
@@ -23,7 +26,7 @@ export function HeaderCreador ({
 
   return (
     <>
-      <header className='flex items-center gap-4 mb-[1lh] '>
+      <header className='flex items-center justify-center lg:justify-start gap-4 mb-[1lh] '>
         <img className='size-10 rounded' src={avatarUrl || '/vite.svg'} alt='imagen del creador' />
         <div className='text-base font-semibold '>
           <h3 className=''>{viewName || 'Default name'}</h3>
@@ -37,7 +40,7 @@ export function HeaderCreador ({
       </header>
 
       {description && (
-        <p className='text-text-hover'>
+        <p className='text-text-hover text-center lg:text-start'>
           {firstDescription || ' Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis, beatae'}
           {
             open && (' ' + secondDescription)
@@ -53,7 +56,14 @@ export function HeaderCreador ({
   )
 }
 
-export function InfoCreador ({ info }) {
+function InfoCreador ({ infoUser }) {
+  const { info } = infoUser
+  const articles = {
+    title: infoUser.title,
+    username: infoUser.username,
+    ...info
+  }
+
   return (
     <div className='flex gap-2 justify-center'>
 
@@ -66,8 +76,9 @@ export function InfoCreador ({ info }) {
         <EmbedShare url={info.embedUrl} />
       </BtnDialog>
       <BtnDialog text='Info' Icon={Info} buttonBottom>
-        <InfoGlobs articles={info} />
+        <InfoGlobs articles={articles} />
       </BtnDialog>
     </div>
   )
 }
+export default React.memo(InfoCreador, (prevP, nextP) => prevP.infoUser.username === nextP.infoUser.username)

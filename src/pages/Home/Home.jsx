@@ -1,36 +1,39 @@
-// import { Search } from 'lucide-react';
-import useGif from '@/hooks/useGif'
-import ListOfComponent from '@/components/ListOfGif/ListOfComponent'
-
-import Loading from '@/components/ContentLoad/Loading'
-import ButtonNav from '@/components/Home/ButtonNav'
-import FilterBtn from '@/components/Home/Filter/Filter'
+import { Helmet } from 'react-helmet'
 import LazyTrading from '@/components/Home/TrendingSearches/TrendingSearches'
+import FormGif from '@/components/Home/FormGif/FormGif'
 
+import Results from '@/components/Home/Results/Results'
 export default function Home () {
-  const { gif, loading } = useGif()
-
   return (
     <>
-      <nav className='flex items-center justify-between w-full relative mb-6'>
-        <ul className='flex gap-4'>
-          <ButtonNav to='/colombia' text='Colombia' />
-          <ButtonNav to='/argentina' text='Argentina' />
-          <ButtonNav to='/venezuela' text='Venezuela' />
-        </ul>
-        <FilterBtn />
-      </nav>
+      <Helmet>
+        <title>Un mundo de búsqueda de gifts para disfrutar de las risas | GifClub</title>
+        <meta
+          name='description'
+          content='GifClub es tu plataforma para buscar, descubrir y compartir los mejores gifs animados. Encuentra gifs divertidos, populares y de tendencia para cada ocasión y comparte risas con tus amigos.'
+        />
+        <meta name='keywords' content='gifs, animados, buscar gifs, compartir gifs, gifs divertidos, gifs populares, gifs tendencia, GifClub' />
+        <meta name='author' content='GifClub' />
 
-      <div className='flex flex-col justify-between items-start min-h-[800px] mb-6'>
-        <h3 className='text-text w-fit text-2xl font-medium mb-6'>Ultima búsqueda realizada</h3>
-        {
-          loading ? <Loading /> : <ListOfComponent gif={gif} />
-        }
-      </div>
+        <meta property='og:title' content='GifClub - Busca y comparte los mejores gifs animados' />
+        <meta property='og:description' content='Descubre y comparte gifs divertidos, populares y de tendencia en GifClub.' />
+        <meta property='og:type' content='website' />
+        <meta property='og:url' content='/logo.svg' />
+        <meta property='og:image' content='/logo.svg' />
 
-      <section>
+        <meta name='twitter:card' content='summary_large_image' />
+        <meta name='twitter:title' content='GifClub - Busca y comparte los mejores gifs animados' />
+        <meta name='twitter:description' content='Descubre y comparte gifs divertidos, populares y de tendencia en GifClub.' />
+        <meta name='twitter:image' content='/logo.svg' />
+
+      </Helmet>
+
+      <FormGif />
+
+      <div className='flex flex-col'>
         <LazyTrading />
-      </section>
+        <Results />
+      </div>
     </>
   )
 }

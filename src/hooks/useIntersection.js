@@ -24,11 +24,12 @@ export default function useNearScreen ({ distance = '100px', externalRef = '', o
     }
 
     Promise.resolve(
-      typeof window.IntersectionObserver === 'undefined' && import('intersection-observer')
+      typeof globalThis.IntersectionObserver === 'undefined' && import('intersection-observer')
     ).then(() => {
-      observer = new window.IntersectionObserver(onChange, options)
+      observer = new globalThis.IntersectionObserver(onChange, options)
       element && observer.observe(element)
     })
+      .catch(e => console.error(e))
 
     return () => observer && observer.disconnect()
   })

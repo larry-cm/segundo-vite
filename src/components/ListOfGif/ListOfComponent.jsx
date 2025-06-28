@@ -1,18 +1,10 @@
-import CardVistas from './CardVistas'
-
-export default function ListOfComponent ({ gif, currentSearch = '' }) {
+import CardVistas from '@/components/ListOfGif/CardVistas'
+export default function ListOfComponent ({ gif, hMin = '' }) {
   return (
     <>
-      {
-        currentSearch && (
-          <h2 className='text-text text-2xl font-medium mb-6 capitalize'>
-            {currentSearch}
-          </h2>
-        )
-      }
-      <section className='content-column min-h-[70vh]'>
+      <div className={`content-column ${hMin || 'min-h-[100vh]'}`}>
         {
-          gif?.map(({ id, url, title, frames, hash, userInfo, username }, index) =>
+          gif?.map(({ id, url, title, frames, hash }, index) =>
             <CardVistas
               key={`${id}-${hash}-${index}`}
               id={id}
@@ -23,7 +15,7 @@ export default function ListOfComponent ({ gif, currentSearch = '' }) {
             />
           )
         }
-      </section>
+      </div>
     </>
   )
 }
