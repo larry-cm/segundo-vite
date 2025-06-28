@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState } from 'react'
 const Context = React.createContext()
 
 export function GifContextProvider ({ children }) {
@@ -9,8 +9,6 @@ export function GifContextProvider ({ children }) {
       {children}
     </Context.Provider>
   )
-
 }
-
 
 export default Context

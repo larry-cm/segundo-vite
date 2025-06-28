@@ -1,0 +1,57 @@
+:root {
+    --bg-aviso: linear-gradient(to top,
+            var(--color-fondo-secondary),
+            #18a2ff 20%,
+            var(--color-primary));
+}
+
+@keyframes Download {
+    from {
+        color: transparent;
+    }
+
+    to {
+        color: white;
+        height: 100%;
+        background: var(--bg-aviso);
+    }
+}
+
+@keyframes Down {
+    0% {
+        color: transparent;
+        height: 100%;
+        background: var(--bg-aviso);
+    }
+
+    100% {
+        color: transparent;
+        height: 100%;
+        opacity: 0;
+    }
+}
+
+@keyframes LetterAnimate {
+    30% {
+        content: 'Descarga en curso.';
+    }
+
+    60% {
+        content: 'Descarga en curso..';
+    }
+
+    90% {
+        content: 'Descarga en curso...';
+    }
+}
+
+.Aviso.Up {
+    height: 0%;
+    animation: Download .35s ease both;
+}
+
+.Aviso.Down {
+    height: 100%;
+    opacity: 1;
+    animation: Down .5s ease both;
+}
