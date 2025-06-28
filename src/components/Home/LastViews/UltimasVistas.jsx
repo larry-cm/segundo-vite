@@ -1,7 +1,14 @@
 import ButtonNav from '@/components/Home/ButtonNav'
 import { useCallback, useState } from 'react'
 export default function LastViews () {
-  const [ultimasVistas, setUltimasVistas] = useState(JSON.parse(window.localStorage.getItem('lastKeyword')) || [])
+  const [ultimasVistas, setUltimasVistas] = useState(() => {
+    const item = window.localStorage.getItem('lastKeyword')
+    try {
+      return item ? JSON.parse(item) : []
+    } catch {
+      return []
+    }
+  })
   const handleVistas = useCallback((val) => {
     setUltimasVistas(val)
   }, [])

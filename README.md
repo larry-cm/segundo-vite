@@ -40,3 +40,17 @@ aprendemos mas sobre los **contextos de react** y se pueden guardar allí para l
 | `onContextMenu` | Botón derecho del mouse                           | `contextmenu`   |
 | `onMouseLeave`  | El mouse sale del elemento (no incluye hijos)     | `mouseleave`    |
 | `onMouseOut`    | El mouse sale del elemento (incluye hijos)        | `mouseout`      |
+
+##### Tabla de los hooks aprendidos
+
+### Tabla descriptiva de hooks de React
+
+| Hook         | ¿Para qué sirve?                                                                                           | Características clave                                                                                      |
+|--------------|-----------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------|
+| `useState`   | Permite a los componentes recordar información y actualizarla cuando sea necesario.                        | Devuelve el valor actual y una función para cambiarlo; cada vez que cambias el estado, el componente se vuelve a renderizar. |
+| `useEffect`  | Sirve para ejecutar código cuando algo cambia, como pedir datos a una API o modificar el DOM.              | Se ejecuta después de renderizar; puedes controlar cuándo se ejecuta usando un array de dependencias.      |
+| `useCallback`| Ayuda a que las funciones no se vuelvan a crear en cada render, lo que mejora el rendimiento en algunos casos. | Solo cambia si cambian las dependencias; útil cuando pasas funciones a componentes hijos memorizados.      |
+| `useRef`     | Guarda valores que quieres mantener entre renders sin que causen un nuevo renderizado.                     | Ideal para acceder a elementos del DOM o guardar información mutable que no afecta la vista.               |
+| `useReducer` | Es como un `useState` avanzado, útil cuando el estado es complejo o tiene muchas partes relacionadas.       | Usa una función reductora para decidir cómo cambiar el estado; muy útil para lógica de actualización más estructurada. |
+
+---
