@@ -16,7 +16,7 @@ function Rating ({ handleRating, rating }) {
       <button
         ref={buttonOpen}
         onClick={handleViewMenu}
-        style={{ background: open && 'var(--color-primary)' }}
+        style={{ background: open ? 'var(--color-primary)' : undefined }}
         className='bg-botones text-base font-medium  text-text py-2 px-4 rounded-2xl flex gap-3'
       >
         <Filter className='text-text' />
