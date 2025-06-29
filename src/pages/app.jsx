@@ -1,14 +1,12 @@
-import { Route } from 'wouter'
-import { lazy, Suspense } from 'react'
-
 import { GifContextProvider } from '@/context/GifContext'
+import { lazy, Suspense } from 'react'
+import { Route } from 'wouter'
 import ContentLoading from '@/components/ContentLoad/LoadingSearches'
-import TitlePage from '@/components/Home/TitlePage'
 import Error from '@/pages/404/Error'
 import SearchResults from './Search/SearchResults'
-const Home = lazy(() => import('@/pages/Home/Home'))
-// const SearchResults = lazy(() => import('@/pages/Search/SearchResults'))
+import TitlePage from '@/components/Home/TitlePage'
 const CardInfo = lazy(() => import('@/pages/Detail/CardInfo'))
+const Home = lazy(() => import('@/pages/Home/Home'))
 
 export default function App () {
   return (
