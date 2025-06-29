@@ -7,8 +7,6 @@ function Mode ({ mode, handleMode }) {
   const { open, elementRef, menuRef, handleViewMenu } = useClickOut()
 
   const submitMode = mode => {
-    console.log(mode.target.value)
-
     handleMode(mode.target.value)
   }
   return (

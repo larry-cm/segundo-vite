@@ -5,6 +5,7 @@ import ContentLoading from '@/components/ContentLoad/LoadingSearches'
 import Error from '@/pages/404/Error'
 import SearchResults from './Search/SearchResults'
 import TitlePage from '@/components/Home/TitlePage'
+import { FilterProvider } from '@/context/FilterContext'
 const CardInfo = lazy(() => import('@/pages/Detail/CardInfo'))
 const Home = lazy(() => import('@/pages/Home/Home'))
 
@@ -18,14 +19,17 @@ export default function App () {
       <GifContextProvider>
         <main className='pb-12'>
           <Suspense fallback={<ContentLoading />}>
-            <Route
-              component={Home}
-              path='/'
-            />
-            <Route
-              component={SearchResults}
-              path='/gif/:keyword/:rating?/:mode?/:lang?'
-            />
+            <FilterProvider>
+
+              <Route
+                component={Home}
+                path='/'
+              />
+              <Route
+                component={SearchResults}
+                path='/gif/:keyword/:rating?/:mode?/:lang?'
+              />
+            </FilterProvider>
             <Route
               component={CardInfo}
               path='/gif-detalle/:id'

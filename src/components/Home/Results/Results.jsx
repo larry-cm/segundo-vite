@@ -8,8 +8,8 @@ export default function Results () {
 
   return (
     <section className='order-1 flex flex-col justify-between items-start min-h-[400px] mb-6 w-full'>
-      <h3 className='text-text w-fit text-2xl font-medium mb-6'>
-        {loading ? 'Buscando GIFs...' : 'Resultados de tu búsqueda'}
+      <h3 className='text-text w-fit text-2xl font-medium mb-4'>
+        {loading ? 'Buscando GIFs...' : 'Resultados de tu ultima búsqueda '}
       </h3>
       {
         loading

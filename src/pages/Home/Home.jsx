@@ -1,8 +1,9 @@
 import { Helmet } from 'react-helmet'
 import LazyTrading from '@/components/Home/TrendingSearches/TrendingSearches'
 import FormGif from '@/components/Home/FormGif/FormGif'
-
+import LastViews from '@/components/Home/LastViews/UltimasVistas'
 import Results from '@/components/Home/Results/Results'
+
 export default function Home () {
   return (
     <>
@@ -28,10 +29,14 @@ export default function Home () {
 
       </Helmet>
 
+
       <FormGif />
+
+      <LastViews />
 
       <div className='flex flex-col'>
         <LazyTrading />
+
         <Results />
       </div>
     </>

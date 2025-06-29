@@ -38,10 +38,9 @@ export default function InfoGlobs ({ articles = {} }) {
     )
   }
 
-  const { title, width, height, size, username, frames = '', rating, publishDate } = articles
+  const { width, height, size, username, frames = '', rating, publishDate } = articles
   return (
     <div className='space-y-10'>
-      <h3 className='text-3xl first-letter:capitalize text-text  font-bold'>{title}</h3>
       <section className='size-full min-h-44 place-content-center grid grid-cols-1 justify-items-center sm:justify-items-start sm:grid-cols-2 md:grid-cols-3 gap-6'>
         {(height && width) && <Article title='Dimension' text={`${height}x${width}`} />}
 

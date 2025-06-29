@@ -75,7 +75,7 @@ function InfoCreador ({ infoUser }) {
       <BtnDialog text='Embed' Icon={Code} titleHeader='Gift como embed.'>
         <EmbedShare url={info.embedUrl} />
       </BtnDialog>
-      <BtnDialog text='Info' Icon={Info} buttonBottom>
+      <BtnDialog text='Info' titleHeader={articles.title} Icon={Info} buttonBottom>
         <InfoGlobs articles={articles} />
       </BtnDialog>
     </div>

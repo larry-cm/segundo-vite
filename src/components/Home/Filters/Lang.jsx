@@ -1,19 +1,20 @@
 import useClickOut from '@/hooks/useClickOut'
 import { Languages } from 'lucide-react'
-import { languagesArray, languagesArrayInvertido } from './entries'
+import { languagesArrayInvertido, LANGUAGES } from '@/components/Home/Filters/entries'
 
+const languagesArray = Object.values(LANGUAGES)
 export default function Lang ({ handleLang, lang }) {
   const { menuRef, open, elementRef, handleViewMenu } = useClickOut()
+
   function submitLang (lang) {
     handleLang(languagesArrayInvertido[lang.target.value])
-    console.log()
   }
 
   return (
     <div className='relative '>
       <button
         ref={elementRef}
-        aria-label='Disponible para filtrar'
+        aria-label='Disponible para filtrar mediante el lenguaje'
         onClick={handleViewMenu}
         type='button'
         style={{ background: open && 'var(--color-primary)' }}
@@ -38,7 +39,7 @@ export default function Lang ({ handleLang, lang }) {
                       type='radio'
                       name='mode'
                       value={language}
-                      checked={lang === language}
+                      checked={lang === languagesArrayInvertido[language]}
                       onChange={submitLang}
                       className='sr-only peer'
                     />

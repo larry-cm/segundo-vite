@@ -5,7 +5,8 @@ export const ACTION = {
   UPDATE_RATING: 'update_rating',
   UPDATE_MODE: 'update_mode',
   UPDATE_LANG: 'update_lang',
-  CLEAN_KEYWORD: 'clean_keyword'
+  CLEAN_KEYWORD: 'clean_keyword',
+  CLEAN_FILTERS: 'clean_filters'
 }
 export const clasificaciones = {
   g: 'Todo público',
@@ -52,7 +53,6 @@ export const LANGUAGES = {
   no: 'norwegian',
   uk: 'ukrainian'
 }
-export const languagesArray = Object.values(LANGUAGES)
 export const languagesArrayInvertido = Object.fromEntries(
   Object.entries(LANGUAGES).map(([clave, valor]) => [valor, clave])
 )

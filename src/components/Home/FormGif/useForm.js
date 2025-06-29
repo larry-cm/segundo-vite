@@ -1,35 +1,33 @@
 import { useLocation } from 'wouter'
-import { useCallback, useReducer } from 'react'
-import { ACTION } from '@/components/Home/Filters/entries'
-
+import { useCallback, useReducer, useContext, useEffect } from 'react'
+import { ACTION, LANGUAGES, languagesArrayInvertido, MODO, RATINGS } from '@/components/Home/Filters/entries'
+import FilterContext from '@/context/FilterContext'
 export default function useForm ({ initialKeyword, initialRating, initialMode, initialLang }) {
   const pushLocation = useLocation()[1]
-  const reducer = (state, action) => {
-    const OPTION = {
-      [ACTION.UPDATE_KEYWORD]: {
+  const { setFilters } = useContext(FilterContext) || {}
+  const ACTION_REDUCER = {
+    [ACTION.UPDATE_KEYWORD]: (state, action) => ({ ...state, query: action.payload }),
+    [ACTION.UPDATE_RATING]: (state, action) => ({ ...state, rating: action.payload }),
+    [ACTION.UPDATE_MODE]: (state, action) => ({ ...state, mode: action.payload }),
+    [ACTION.UPDATE_LANG]: (state, action) => ({ ...state, lang: action.payload }),
+    [ACTION.CLEAN_KEYWORD]: (state, action) => ({ ...state, query: '' }),
+    [ACTION.CLEAN_FILTERS]: (state, action) => {
+      if (state.lang === languagesArrayInvertido[LANGUAGES.es]) {
+        const openDialog = action.payload
+        openDialog()
+        return state
+      }
+      return {
         ...state,
-        query: action.payload
-      },
-      [ACTION.CLEAN_KEYWORD]: {
-        ...state,
-        query: ''
-      },
-      [ACTION.UPDATE_RATING]: {
-        ...state,
-        rating: action.payload
-      },
-      [ACTION.UPDATE_MODE]: {
-        ...state,
-        mode: action.payload
-      },
-      [ACTION.UPDATE_LANG]: {
-        ...state,
-        lang: action.payload
+        mode: MODO[0],
+        rating: RATINGS[0],
+        lang: languagesArrayInvertido[LANGUAGES.es]
       }
     }
-    if (action.type in OPTION) {
-      return OPTION[action.type]
-    } else return state
+  }
+  const reducer = (state, action) => {
+    const actionReducer = ACTION_REDUCER[action.type]
+    return actionReducer ? actionReducer(state, action) : state
   }
 
   const [state, dispatch] = useReducer(reducer, {
@@ -38,6 +36,17 @@ export default function useForm ({ initialKeyword, initialRating, initialMode, i
     mode: initialMode,
     lang: initialLang
   })
+
+  useEffect(() => {
+    if (!setFilters) return
+    setFilters(prev => ({
+      ...prev,
+      query: state.query,
+      rating: state.rating,
+      mode: state.mode,
+      lang: state.lang
+    }))
+  }, [state.query, state.rating, state.mode, state.lang])
   const { query, rating, mode, lang } = state
   return {
     query,
@@ -45,10 +54,11 @@ export default function useForm ({ initialKeyword, initialRating, initialMode, i
     mode,
     lang,
     updateKeyword: useCallback(keyword => dispatch({ type: ACTION.UPDATE_KEYWORD, payload: keyword }), []),
-    cleanKeyword: useCallback(() => dispatch({ type: ACTION.CLEAN_KEYWORD, payload: '' }), []),
     updateRating: useCallback(rating => dispatch({ type: ACTION.UPDATE_RATING, payload: rating }), []),
     updateMode: useCallback(mode => dispatch({ type: ACTION.UPDATE_MODE, payload: mode }), []),
     updateLang: useCallback(lang => dispatch({ type: ACTION.UPDATE_LANG, payload: lang }), []),
+    cleanKeyword: useCallback(() => dispatch({ type: ACTION.CLEAN_KEYWORD, payload: '' }), []),
+    cleanFilters: useCallback(filters => dispatch({ type: ACTION.CLEAN_FILTERS, payload: filters }), []),
     submitForm: useCallback(() => {
       if (!query) return
       pushLocation(`/gif/${query}/${rating}/${mode}/${lang}`)

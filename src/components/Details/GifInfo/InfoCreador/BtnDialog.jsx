@@ -19,10 +19,10 @@ export default function BtnDialog ({ Icon, text, children, titleHeader, buttonBo
         onAnimationEnd={handleAnimateEnd}
       >
         <div ref={contentRef} tabIndex={0} className='size-full min-h-60   bg-fondo-secondary p-6 rounded-lg border border-secondary '>
-          <header className='flex items-center justify-between'>
-            <h2 className='text-2xl text-white font-semibold mb-2'>{titleHeader}</h2>
+          <header className='flex items-center justify-between mb-2'>
+            <h2 className='text-3xl text-white font-semibold '>{titleHeader}</h2>
 
-            <button onClick={handleCloseDialog} className='text-white hover:text-red-500 transition cursor-pointer'>
+            <button onClick={handleCloseDialog} className='text-white bg-red-500 p-1 rounded-full transition cursor-pointer'>
               <X />
             </button>
           </header>

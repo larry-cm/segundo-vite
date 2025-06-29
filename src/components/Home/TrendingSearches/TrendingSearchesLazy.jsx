@@ -11,16 +11,15 @@ function TrendingSearchesLazy () {
       .catch(e => console.error(e))
     return () => setTrends([])
   }, [])
-
   return (
     <>
-      <p className='flex flex-wrap gap-2'>
+      <span className='flex flex-wrap gap-2'>
         {
           trends?.map((trend, i) => (
             <Tags url={trend} key={i} ancla />
           ))
         }
-      </p>
+      </span>
     </>
   )
 }

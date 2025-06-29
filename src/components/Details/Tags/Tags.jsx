@@ -1,12 +1,20 @@
-import React from 'react'
+import { LANGUAGES, languagesArrayInvertido, MODO, RATINGS } from '@/components/Home/Filters/entries'
+import FilterContext from '@/context/FilterContext'
+import React, { useContext } from 'react'
 import { Link } from 'wouter'
 function Tags ({ pulse, ancla, url }) {
+  const { filters } = useContext(FilterContext) || {}
+  const {
+    rating = RATINGS[0],
+    mode = MODO[0],
+    lang = languagesArrayInvertido[LANGUAGES.es]
+  } = filters || {}
   const prueba = 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis, beatae'.split(' ')
-  if (ancla) {
+  if (ancla && filters) {
     return (
       <Link
         className='bg-botones text-text-hover/90 transition hover:text-white'
-        to={`/gif/${encodeURI(url)}`}
+        to={`/gif/${encodeURI(url)}/${rating}/${mode}/${lang}`}
       >
         {url}
       </Link>
