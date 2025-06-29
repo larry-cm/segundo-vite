@@ -6,7 +6,7 @@ import useGif from '@/hooks/useGif'
 import useNearScreen from '@/hooks/useIntersection'
 import FormGif from '@/components/Home/FormGif/FormGif'
 
-// import { Helmet } from 'react-helmet'
+import { Helmet } from 'react-helmet'
 import { clasificacionesAbreviadas, LANGUAGES, MODO, RATINGS } from '@/components/Home/Filters/entries'
 
 const ListOfComponent = lazy(() => import('@/components/ListOfGif/ListOfComponent'))
@@ -32,9 +32,9 @@ export default function SearchResults ({ params = '' }) {
   if (loading) {
     return (
       <>
-        {/* <Helmet>
+        <Helmet>
           <title>Cargando...</title>
-        </Helmet> */}
+        </Helmet>
         <Loading />
       </>
     )

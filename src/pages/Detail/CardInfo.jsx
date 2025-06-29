@@ -8,7 +8,7 @@ import Tags from '@/components/Details/Tags/Tags'
 import useSingleGif from '@/hooks/useSingleGif'
 import Loading from '@/components/ContentLoad/Loading'
 import { Redirect } from 'wouter'
-// import { Helmet } from 'react-helmet'
+import { Helmet } from 'react-helmet'
 
 export default function CardInfo ({ params }) {
   const { id = '' } = params
@@ -26,7 +26,7 @@ export default function CardInfo ({ params }) {
   const { url, userInfo, username, title, info } = singleGif
   return (
     <>
-      {/* <Helmet>
+      <Helmet>
         <title>{title ? `${title} | GifClub` : 'Detalle del Gif | GifClub'}</title>
         <meta
           name='description'
@@ -58,7 +58,7 @@ export default function CardInfo ({ params }) {
           }
         />
         <meta name='twitter:image' content={url} />
-      </Helmet> */}
+      </Helmet>
       <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 text-text '>
         <section className=' h-fit col-span-1 md:col-span-2  lg:col-span-1 space-y-4'>
           {

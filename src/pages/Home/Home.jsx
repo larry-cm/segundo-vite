@@ -1,4 +1,4 @@
-// import { Helmet } from 'react-helmet'
+import { Helmet } from 'react-helmet'
 import LazyTrading from '@/components/Home/TrendingSearches/TrendingSearches'
 import FormGif from '@/components/Home/FormGif/FormGif'
 
@@ -6,7 +6,7 @@ import Results from '@/components/Home/Results/Results'
 export default function Home () {
   return (
     <>
-      {/* <Helmet>
+      <Helmet>
         <title>Un mundo de búsqueda de gifts para disfrutar de las risas | GifClub</title>
         <meta
           name='description'
@@ -26,7 +26,7 @@ export default function Home () {
         <meta name='twitter:description' content='Descubre y comparte gifs divertidos, populares y de tendencia en GifClub.' />
         <meta name='twitter:image' content='/logo.svg' />
 
-      </Helmet> */}
+      </Helmet>
 
       <FormGif />
 
