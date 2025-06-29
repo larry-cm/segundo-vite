@@ -6,15 +6,16 @@ export default function useSingleGif ({ id }) {
   const lastGiftsObserver = { gif: JSON.parse(globalThis.localStorage.getItem('lastGifObserver') || '[]') }
   const gifContextValue = useContext(GifContext)
   const defineGif = gifContextValue.gif.length ? gifContextValue : lastGiftsObserver
+
   const { gif } = defineGif
   const fromCacheGif = gif?.find(singleGif => singleGif?.id === id)
 
-  const [gifts, setGifts] = useState(fromCacheGif)
+  const [singleGif, setGifts] = useState(fromCacheGif)
   const [isError, setError] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
 
   useEffect(function () {
-    if (!gifts) {
+    if (!singleGif) {
       setIsLoading(true)
       apiObSingleGif({ id })
         .then(gif => {
@@ -28,7 +29,7 @@ export default function useSingleGif ({ id }) {
           setError(true)
         })
     }
-  }, [gifts, id])
+  }, [id])
 
-  return { gifts, isError, isLoading }
+  return { singleGif, isError, isLoading }
 }

@@ -9,6 +9,7 @@ export default function LastViews () {
       return []
     }
   })
+
   const handleVistas = useCallback((val) => {
     setUltimasVistas(val)
   }, [])

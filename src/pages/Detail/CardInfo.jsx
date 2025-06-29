@@ -9,10 +9,10 @@ import useSingleGif from '@/hooks/useSingleGif'
 import Loading from '@/components/ContentLoad/Loading'
 import { Redirect } from 'wouter'
 import { Helmet } from 'react-helmet'
+
 export default function CardInfo ({ params }) {
   const { id = '' } = params
-
-  const { gifts, isLoading, isError } = useSingleGif({ id })
+  const { singleGif, isLoading, isError } = useSingleGif({ id })
   const [animateDownload, setAnimateDownload] = useState(null)
   const [animateCopyLink, setAnimateCopyLink] = useState(null)
 
@@ -22,9 +22,8 @@ export default function CardInfo ({ params }) {
 
   if (isLoading) return <Loading />
   if (isError) return <Redirect to='/404' />
-  if (!gifts) return null
-
-  const { url, userInfo, username, title, info } = gifts
+  if (!singleGif) return <>nos vemos</>
+  const { url, userInfo, username, title, info } = singleGif
   return (
     <>
       <Helmet>
@@ -61,21 +60,20 @@ export default function CardInfo ({ params }) {
         <meta name='twitter:image' content={url} />
       </Helmet>
       <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 text-text '>
-
         <section className=' h-fit col-span-1 md:col-span-2  lg:col-span-1 space-y-4'>
-
-          {(username || userInfo.avatarUrl || userInfo.viewName) && (
-            <Card>
-              <HeaderCreador
-                username={username}
-                userInfo={userInfo}
-              />
-            </Card>
-          )}
+          {
+            (username || userInfo.avatarUrl || userInfo.viewName) && (
+              <Card>
+                <HeaderCreador
+                  username={username}
+                  userInfo={userInfo}
+                />
+              </Card>
+            )
+          }
           <Card>
             <InfoCreador infoUser={{ info, username, title }} />
           </Card>
-
         </section>
 
         <section className=' sm:row-start-2 md:col-start-2 lg:row-start-1  sm:col-span-2 h-fit'>
