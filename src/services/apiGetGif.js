@@ -1,6 +1,5 @@
-import { LANGUAGES, MODO, RATINGS } from '@/components/Home/Filters/entries'
-import { apiUrl } from '@/services/setting'
-const apiKey = import.meta.env.VITE_API_KEY
+import { LANGUAGES, languagesArrayInvertido, MODO, RATINGS } from '@/components/Home/Filters/entries'
+import { apiUrl, apiKey } from '@/services/setting'
 
 const fromApiResponseToGif = response => {
   const { data = [] } = response
@@ -38,7 +37,7 @@ const fromApiResponseToGif = response => {
   })
 }
 
-export function apiObGif ({ rating = RATINGS[0], lang = LANGUAGES.es, keyword = 'die Bart', mode = MODO[0], page = 0, limit = 10 } = {}) {
+export function apiObGif ({ rating = RATINGS[0], lang = languagesArrayInvertido[LANGUAGES.es], keyword = 'die Bart', mode = MODO[0], page = 0, limit = 10 } = {}) {
   const urlApi = `${apiUrl}/${mode}/search?api_key=${apiKey}&q=${keyword}&limit=${limit}&offset=${page * limit}&rating=${rating}&lang=${lang}&bundle=messaging_non_clips`
   return fetch(urlApi)
     .then(obj => obj.json())

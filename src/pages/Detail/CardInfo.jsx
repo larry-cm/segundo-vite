@@ -23,7 +23,8 @@ export default function CardInfo ({ params }) {
   if (isLoading) return <Loading />
   if (isError) return <Redirect to='/404' />
   if (!singleGif) return <>nos vemos</>
-  const { url, userInfo, username, title, info } = singleGif
+  const { url, userInfo, username, title, info, frames } = singleGif
+
   return (
     <>
       <Helmet>
@@ -72,7 +73,7 @@ export default function CardInfo ({ params }) {
             )
           }
           <Card>
-            <InfoCreador infoUser={{ info, username, title }} />
+            <InfoCreador infoUser={{ info, username, title, frames }} />
           </Card>
         </section>
 

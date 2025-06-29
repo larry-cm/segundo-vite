@@ -17,10 +17,11 @@ function FormGif ({
   initialKeyword = '',
   initialRating = ratingToUse,
   initialMode = modeToUse,
-  initialLang = langToUse
+  initialLang = langToUse,
+  viewFilters = true
 }) {
   const { filters } = useContext(FilterContext) || {}
-  const { query: queryContext, rating: ratingContext, mode: modeContext, lang: langContext } = filters
+  const { query: queryContext, rating: ratingContext, mode: modeContext, lang: langContext } = filters || {}
 
   const {
     query,
@@ -35,10 +36,10 @@ function FormGif ({
     updateLang,
     submitForm
   } = useForm({
-    initialKeyword: queryContext || initialKeyword,
-    initialRating: ratingContext || initialRating,
-    initialMode: modeContext || initialMode,
-    initialLang: langContext || initialLang
+    initialKeyword: initialKeyword || queryContext,
+    initialRating: initialRating || ratingContext,
+    initialMode: initialMode || modeContext,
+    initialLang: initialLang || langContext
   })
 
   function handleForm (event) {
@@ -83,17 +84,21 @@ function FormGif ({
 
         <button
           aria-label='search-gifts'
-          className='px-4 bg-gradient-to-br from-blue-400 via-sky-500 to-blue-500 h-full cursor-pointer flex items-center'
+          className='px-4 primary-fondo h-full cursor-pointer flex items-center'
         >
           <Search className='size-8 text-white' />
         </button>
       </form>
-      <div className='flex flex-wrap gap-4 mb-6'>
-        <Rating handleRating={updateRating} rating={rating} />
-        <Mode handleMode={updateMode} mode={mode} />
-        <Lang handleLang={updateLang} lang={lang} />
-        <RestartFilters handleRestart={cleanFilters} />
-      </div>
+      {
+        viewFilters && (
+          <div className='flex flex-wrap gap-4 mb-6'>
+            <Rating handleRating={updateRating} rating={rating} />
+            <Mode handleMode={updateMode} mode={mode} />
+            <Lang handleLang={updateLang} lang={lang} />
+            <RestartFilters handleRestart={cleanFilters} />
+          </div>
+        )
+      }
     </>
   )
 }

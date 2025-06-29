@@ -1,5 +1,4 @@
-import { apiUrl } from '@/services/setting'
-const apiKey = import.meta.env.VITE_API_KEY
+import { apiUrl, apiKey } from '@/services/setting'
 
 const fromApiResponseToTerms = response => {
   const { data = [] } = response

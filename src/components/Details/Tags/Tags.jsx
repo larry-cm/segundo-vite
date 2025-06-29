@@ -2,6 +2,8 @@ import { LANGUAGES, languagesArrayInvertido, MODO, RATINGS } from '@/components/
 import FilterContext from '@/context/FilterContext'
 import React, { useContext } from 'react'
 import { Link } from 'wouter'
+const prueba = 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis, beatae'.split(' ')
+
 function Tags ({ pulse, ancla, url }) {
   const { filters } = useContext(FilterContext) || {}
   const {
@@ -9,7 +11,6 @@ function Tags ({ pulse, ancla, url }) {
     mode = MODO[0],
     lang = languagesArrayInvertido[LANGUAGES.es]
   } = filters || {}
-  const prueba = 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis, beatae'.split(' ')
   if (ancla && filters) {
     return (
       <Link

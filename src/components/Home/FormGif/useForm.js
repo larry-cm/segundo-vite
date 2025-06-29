@@ -12,7 +12,11 @@ export default function useForm ({ initialKeyword, initialRating, initialMode, i
     [ACTION.UPDATE_LANG]: (state, action) => ({ ...state, lang: action.payload }),
     [ACTION.CLEAN_KEYWORD]: (state, action) => ({ ...state, query: '' }),
     [ACTION.CLEAN_FILTERS]: (state, action) => {
-      if (state.lang === languagesArrayInvertido[LANGUAGES.es]) {
+      if (
+        state.lang === languagesArrayInvertido[LANGUAGES.es] &&
+        state.mode === MODO[0] &&
+        state.rating === RATINGS[0]
+      ) {
         const openDialog = action.payload
         openDialog()
         return state
@@ -60,7 +64,7 @@ export default function useForm ({ initialKeyword, initialRating, initialMode, i
     cleanKeyword: useCallback(() => dispatch({ type: ACTION.CLEAN_KEYWORD, payload: '' }), []),
     cleanFilters: useCallback(filters => dispatch({ type: ACTION.CLEAN_FILTERS, payload: filters }), []),
     submitForm: useCallback(() => {
-      if (!query) return
+      if (!query || !rating || !mode || !lang) return
       pushLocation(`/gif/${query}/${rating}/${mode}/${lang}`)
     }, [query, rating, mode, lang]
     )

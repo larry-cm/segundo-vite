@@ -35,7 +35,7 @@ export default function RestartFilters ({ handleRestart }) {
             </button>
           </header>
 
-          <p className='mt-4 text-text-hover text-lg'>
+          <p className='mt-4 text-text text-lg'>
             Todos los filtros ya están en su configuración original.<br />
             ¡Puedes seguir explorando o aplicar nuevos filtros cuando lo desees!
           </p>

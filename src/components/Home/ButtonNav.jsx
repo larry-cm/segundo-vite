@@ -14,10 +14,11 @@ function ButtonNav ({ to, text, handleVistas }) {
 
   function handleQuitButton () {
     const lastK = JSON.parse(window.localStorage.getItem('lastKeyword') || [])
+
     window.localStorage.setItem('lastKeyword', JSON.stringify(lastK.filter(e => e !== text)))
     handleVistas(lastK.filter(e => e !== text))
   }
-
+  const [keyword] = text.split('/')
   return (
     <li className='relative group' onMouseOver={handleButton} onMouseOut={handleCloseButton}>
       <Link
@@ -26,7 +27,7 @@ function ButtonNav ({ to, text, handleVistas }) {
         style={{ paddingLeft: '3rem' }}
         className='bg-botones group-hover:bg-primary truncate font-medium  transition  text-text capitalize flex '
       >
-        <span>{text || 'Colombia '}</span>
+        <span>{decodeURIComponent(keyword) || 'Colombia '}</span>
 
       </Link>
       <span

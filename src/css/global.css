@@ -23,6 +23,9 @@
   .bg-botones:hover {
     @apply bg-primary text-white ;
   }
+  .primary-fondo{
+    @apply bg-gradient-to-br from-blue-400 via-sky-500 to-blue-500 ;
+  }
 }
 
 

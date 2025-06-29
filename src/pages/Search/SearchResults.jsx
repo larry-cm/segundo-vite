@@ -12,8 +12,20 @@ import { clasificacionesAbreviadas, LANGUAGES, MODO, RATINGS } from '@/component
 const ListOfComponent = lazy(() => import('@/components/ListOfGif/ListOfComponent'))
 
 export default function SearchResults ({ params = '' }) {
-  const { keyword, rating = RATINGS[0], mode = MODO[0], lang = clasificacionesAbreviadas[LANGUAGES.es] } = params
-  const { loading, gif, setPage, loadingNextPage, finalPage } = useGif({ keyword, rating, mode, lang })
+  const {
+    keyword,
+    rating = RATINGS[0],
+    mode = MODO[0],
+    lang = clasificacionesAbreviadas[LANGUAGES.es]
+  } = params
+
+  const {
+    loading,
+    gif,
+    setPage,
+    loadingNextPage,
+    finalPage
+  } = useGif({ keyword, rating, mode, lang })
 
   const { isNearScreen, refElement } = useNearScreen({
     distance: '200px',
@@ -42,7 +54,7 @@ export default function SearchResults ({ params = '' }) {
 
   return (
     <>
-      {/* <Helmet>
+      <Helmet>
         <title>
           {gif.length
             ? `${gif.length} resultados para "${decodeURI(keyword)}" | GufClub`
@@ -100,10 +112,10 @@ export default function SearchResults ({ params = '' }) {
               : `No hay gifs para "${decodeURI(keyword)}" en GufClub.`
           }
         />
-      </Helmet> */}
+      </Helmet>
 
       <FormGif
-        initialKeyword={keyword}
+        initialKeyword={decodeURI(keyword)}
         initialRating={rating}
         initialMode={mode}
         initialLang={lang}

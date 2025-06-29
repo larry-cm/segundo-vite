@@ -61,6 +61,7 @@ function InfoCreador ({ infoUser }) {
   const articles = {
     title: infoUser.title,
     username: infoUser.username,
+    frames: infoUser.frames,
     ...info
   }
 

@@ -6,6 +6,7 @@ import Error from '@/pages/404/Error'
 import SearchResults from './Search/SearchResults'
 import TitlePage from '@/components/Home/TitlePage'
 import { FilterProvider } from '@/context/FilterContext'
+import NotFoundRedirect from '@/pages/404/NotFoundRedirect'
 const CardInfo = lazy(() => import('@/pages/Detail/CardInfo'))
 const Home = lazy(() => import('@/pages/Home/Home'))
 
@@ -20,7 +21,6 @@ export default function App () {
         <main className='pb-12'>
           <Suspense fallback={<ContentLoading />}>
             <FilterProvider>
-
               <Route
                 component={Home}
                 path='/'
@@ -41,7 +41,7 @@ export default function App () {
           </Suspense>
         </main>
       </GifContextProvider>
+      <NotFoundRedirect />
     </>
-
   )
 }
