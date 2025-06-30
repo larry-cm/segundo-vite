@@ -7,8 +7,7 @@ import FilterContext from '@/context/FilterContext'
 function Gif ({ title, id, url, altText = 'gif', hash, frames, classAdd, animateView }) {
   const { filters } = useContext(FilterContext)
   const { mode } = filters
-  const avisos = Object.values(animateView).filter(e => e !== null)
-  console.log(avisos)
+  const avisos = Object.values(animateView || {}).filter(value => value !== null)
   return (
     <Link
       to={`/gif-detalle/${mode}/${id}`}
