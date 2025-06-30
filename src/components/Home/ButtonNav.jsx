@@ -1,7 +1,7 @@
 import { X } from 'lucide-react'
 import { Link } from 'wouter'
 import React from 'react'
-function ButtonNav ({ to, text, handleVistas }) {
+function ButtonNav ({ to, text, handleVistas, badge }) {
   function handleQuitButton () {
     const lastK = JSON.parse(window.localStorage.getItem('lastKeyword') || [])
     const lastKFilter = lastK.filter(e => (`/gif/${e}` !== to))
@@ -17,9 +17,16 @@ function ButtonNav ({ to, text, handleVistas }) {
         to={to || ' '}
         aria-label='enlace-principal'
         style={{ paddingLeft: '3rem', background: 'var(--color-primary)' }}
-        className='bg-botones  truncate font-medium  transition  text-text capitalize flex '
+        className='bg-botones relative  font-medium  transition  text-text capitalize flex '
       >
         <span>{decodeURIComponent(keyword) || 'Colombia '}</span>
+        {
+          badge && (
+            <span className='absolute w-fit text-xs right-0 -top-3 bg-red-500 p-1 rounded-full'>
+              {badge.replace('/', ' - ')}
+            </span>
+          )
+        }
 
       </Link>
       <span

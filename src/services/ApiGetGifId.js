@@ -2,13 +2,14 @@ import { apiUrl, apiKey } from '@/services/setting'
 
 const fromApiResponseToGif = response => {
   const { data = [] } = response
-  const { user, images, title, id, embed_url, username, source, rating, import_datetime } = data
+  const { user, images, title, id, embed_url, username, source, rating, import_datetime, alt_text } = data
   const { url, frames, hash, height, width, size } = images?.original
   const { avatar_url: avatarUrl, display_name: viewName, description, instagram_url: instaUrl, website_url: webUrl, is_verified: isVerified } = user || {}
   return {
     title,
     id,
     url,
+    altText: alt_text,
     frames,
     hash,
     username,

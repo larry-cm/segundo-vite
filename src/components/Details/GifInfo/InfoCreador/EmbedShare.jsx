@@ -1,42 +1,20 @@
 import '@/css/switch.css'
 import { Copy, CopyCheck } from 'lucide-react'
-import { useRef, useState } from 'react'
-import { Iframes } from '@/assets/Iframes'
+import useEmbedShare from '@/components/Details/GifInfo/InfoCreador/useEmbedShare'
 
 export default function EmbedShare ({ url }) {
-  const [copy, setCopy] = useState({ value: Iframes({ url }), status: false })
-  const responsiveRef = useRef()
-  const jsxRef = useRef()
+  const { responsiveRef, jsxRef, state, copyUrl, changeIframe } = useEmbedShare({ url })
+  const { status, value } = state
 
-  const iconsCopy = copy.status ? <CopyCheck /> : <Copy />
-  const colorCopyIcons = copy.status ? 'from-green-600 via-green-500 to-green-700' : 'from-secondary/80 via-secondary to-secondary/80'
+  const iconsCopy = status ? <CopyCheck /> : <Copy />
+  const colorCopyIcons = status ? 'from-green-600 via-green-500 to-green-700' : 'from-secondary/80 via-secondary to-secondary/80'
+
+  function handleChange (e) {
+    changeIframe(e)
+  }
 
   function handleCopy () {
-    const copiar = async () => {
-      try {
-        setCopy(prev => ({ ...prev, status: true }))
-        await navigator.clipboard.writeText(copy.value)
-      } catch (err) {
-        console.error('Error al copiar:', err)
-      }
-    }
-    copiar()
-
-    setTimeout(() => {
-      setCopy(prev => ({ ...prev, status: false }))
-    }, 1000)
-  }
-
-  function handleChangeIframe (e) {
-    const preferrerResponsive = (e.target.checked)
-    const preferrerJsx = (jsxRef.current && jsxRef.current.checked)
-    setCopy(prev => ({ ...prev, value: Iframes({ url, responsive: preferrerResponsive, jsx: preferrerJsx }) }))
-  }
-
-  function handleDisablesJsx (e) {
-    const preferrerJsx = (e.target.checked)
-    const preferrerResponsive = (responsiveRef.current && responsiveRef.current.checked)
-    setCopy(prev => ({ ...prev, value: Iframes({ url, responsive: preferrerResponsive, jsx: preferrerJsx }) }))
+    copyUrl()
   }
 
   return (
@@ -56,11 +34,12 @@ export default function EmbedShare ({ url }) {
             <input
               ref={responsiveRef}
               className='toggle-input'
-              onChange={handleChangeIframe}
-              id='toggle'
+              onChange={handleChange}
+              id='toggle-responsive'
+              data-type='responsive'
               type='checkbox'
             />
-            <label className='toggle-label' htmlFor='toggle' />
+            <label className='toggle-label' htmlFor='toggle-responsive' />
           </div>
         </div>
 
@@ -72,8 +51,9 @@ export default function EmbedShare ({ url }) {
               ref={jsxRef}
               className='toggle-input'
               id='toggle-jsx-tsx'
+              data-type='jsx-tsx'
               type='checkbox'
-              onChange={handleDisablesJsx}
+              onChange={handleChange}
             />
             <label className='toggle-label' htmlFor='toggle-jsx-tsx' />
           </div>
@@ -88,7 +68,7 @@ export default function EmbedShare ({ url }) {
             className='size-full  py-2 px-4 h-full rounded-r-none appearance-none  outline-none border border-transparent focus:border-primary border-r-0 rounded-md bg-text text-base'
             type='text'
             autoComplete='none'
-            value={copy.value}
+            value={value}
             onChange={function () { }}
           />
           <button

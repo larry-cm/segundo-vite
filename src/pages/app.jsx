@@ -6,7 +6,7 @@ import Error from '@/pages/404/Error'
 import SearchResults from './Search/SearchResults'
 import TitlePage from '@/components/Home/TitlePage'
 import { FilterProvider } from '@/context/FilterContext'
-import NotFoundRedirect from '@/pages/404/NotFoundRedirect'
+// import NotFoundRedirect from '@/pages/404/NotFoundRedirect'
 const CardInfo = lazy(() => import('@/pages/Detail/CardInfo'))
 const Home = lazy(() => import('@/pages/Home/Home'))
 
@@ -29,11 +29,11 @@ export default function App () {
                 component={SearchResults}
                 path='/gif/:keyword/:rating?/:mode?/:lang?'
               />
+              <Route
+                component={CardInfo}
+                path='/gif-detalle/:mode?/:id?'
+              />
             </FilterProvider>
-            <Route
-              component={CardInfo}
-              path='/gif-detalle/:id'
-            />
             <Route
               component={Error}
               path='/404'
@@ -41,7 +41,7 @@ export default function App () {
           </Suspense>
         </main>
       </GifContextProvider>
-      <NotFoundRedirect />
+      {/* <NotFoundRedirect /> */}
     </>
   )
 }

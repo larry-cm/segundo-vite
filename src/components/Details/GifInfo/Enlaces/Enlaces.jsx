@@ -3,16 +3,48 @@ import { Favoritos } from './Favoritos'
 import Descargar from './Descargar'
 import Copiar from './Copiar'
 import Card from '../Card'
-export default function Enlaces ({ urlDownload, title, mode, elementId, handleAnimateCopyLink, handleAnimateDownload }) {
+import CompartirWp from './CompartirWp'
+
+export default function Enlaces ({
+  urlDownload,
+  title,
+  mode,
+  elementId,
+  handleAnimateCopyLink,
+  handleAnimateDownload,
+  handleAnimateShare,
+  handleAnimateFav
+}) {
   return (
     <Card>
 
-      <div className='flex items-center justify-center md:flex-col gap-4 text-base *:text-nowrap '>
-        <Favoritos mode={mode} elementId={elementId} />
+      <div className='flex items-center justify-center md:flex-col gap-2 text-sm md:text-base *:text-wrap md:*:min-w-40'>
+        <div className='flex flex-col sm:flex-row md:flex-col justify-center md:items-start items-center gap-2'>
+          <Favoritos
+            mode={mode}
+            handleAnimateFav={handleAnimateFav}
+            elementId={elementId}
+          />
 
-        <Copiar urlDownload={urlDownload} handleAnimateCopyLink={handleAnimateCopyLink} />
+          <Copiar
+            urlDownload={urlDownload}
+            handleAnimateCopyLink={handleAnimateCopyLink}
+          />
+        </div>
+        <div className='flex flex-col sm:flex-row md:flex-col justify-center md:items-start items-center gap-2'>
 
-        <Descargar urlDownload={urlDownload} title={title} handleAnimateDownload={handleAnimateDownload} />
+          <Descargar
+            title={title}
+            urlDownload={urlDownload}
+            handleAnimateDownload={handleAnimateDownload}
+          />
+
+          <CompartirWp
+            title={title}
+            urlDownload={urlDownload}
+            handleAnimateShare={handleAnimateShare}
+          />
+        </div>
       </div>
 
     </Card>

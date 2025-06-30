@@ -15,7 +15,7 @@ export default function Results () {
         loading
           ? <Loading />
           : gif.length > 0
-            ? <ListOfComponent gif={gif} hMin='fit-content' />
+            ? <ListOfComponent gif={gif} hMin='h-fit' />
             : <NoResults />
 
       }
