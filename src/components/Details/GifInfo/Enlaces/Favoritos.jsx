@@ -7,9 +7,9 @@ export function Favoritos ({ mode, elementId }) {
     return color
   })
 
-  const colorFav = fav.includes(elementId) ? 'text-red-500' : 'text-text'
-  const fillFav = fav.includes(elementId) ? 'fill-red-500' : 'fill-text'
-  const colorFavSuave = fav.includes(elementId) ? 'text-red-400' : 'text-text'
+  // const colorFav = fav.includes(elementId) ? 'text-red-500' : 'text-text-hover/80'
+  const fillFav = fav.includes(elementId) ? 'fill-primary' : 'fill-transparent'
+  const colorFav = fav.includes(elementId) ? 'text-primary' : 'text-text-hover/70'
 
   const handleFavorites = useCallback(() => {
     setFav(prev => {
@@ -26,10 +26,10 @@ export function Favoritos ({ mode, elementId }) {
       <button
         type='button'
         onClick={handleFavorites}
-        className={`cursor-pointer flex py-2 px-4  font-semibold transition duration-200 w-fit items-center gap-3 group ${colorFavSuave}`}
+        className='cursor-pointer flex flex-col md:flex-row py-2 px-4 transition duration-200 w-fit items-center gap-x-3 gap-y-1.5 group '
       >
-        <Heart className={`group-hover:scale-125 group-hover:fill-red-500 group-hover:text-red-500 transition duration-200 ${fillFav} ${colorFav}`} />
-        <span className='group-hover:text-red-400 '>favorites</span>
+        <Heart className={`group-hover:scale-125 group-hover:fill-primary group-hover:text-primary transition duration-200 ${fillFav} ${colorFav}`} />
+        <span className={`group-hover:text-primary ${colorFav}`}>favorites</span>
       </button>
     </>
   )

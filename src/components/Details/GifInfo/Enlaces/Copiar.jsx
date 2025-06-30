@@ -20,7 +20,7 @@ export default function Copiar ({ handleAnimateCopyLink }) {
   return (
     <button
       onClick={handleAnimate}
-      className='py-2 px-4 text-text  font-semibold transition duration-200 w-fit flex items-center gap-3 group cursor-pointer'
+      className='py-2 px-4 text-text-hover/70 flex flex-col md:flex-row transition duration-200 w-fit  items-center gap-x-3 gap-y-1.5 group cursor-pointer'
     >
       <LinkIcon className='group-hover:scale-125 group-hover:text-secondary transition duration-200' />
       <span className='group-hover:text-sky-500'>Copiar enlace</span>

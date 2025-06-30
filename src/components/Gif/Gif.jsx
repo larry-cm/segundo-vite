@@ -10,7 +10,7 @@ function Gif ({ title, id, url, hash, frames, classAdd, animateCopyLink, animate
       className={` flex relative ${classAdd || 'size-full min-h-32 '}`}
 
     >
-      <img src={url} alt='gif' className='gif object-cover size-full rounded ' />
+      <img loading='lazy' src={url} alt='gif' className='gif object-cover size-full rounded ' />
       <span className='sr-only'>Imagen para de gif para mirar sus propiedades</span>
 
       <AvisoGif stateAviso={animateCopyLink} textMostrar='Enlace copiado!' Icon={ClipboardCheck} />

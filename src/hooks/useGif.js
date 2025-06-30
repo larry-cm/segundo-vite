@@ -12,13 +12,13 @@ export default function useGif ({ keyword, id, rating, mode, lang } = { keyword:
   const [finalPage, setFinalPage] = useState(false)
 
   const lastKeywords = JSON.parse(window.localStorage.getItem('lastKeyword')) || []
-  const keywordToUse = keyword || lastKeywords[0].split('/')[0] || 'random'
-  const modeToUse = mode || lastKeywords[0].split('/')[2] || 'gifs'
+  const keywordToUse = keyword || lastKeywords[0]?.split('/')[0] || 'random'
+  const modeToUse = mode || lastKeywords[0]?.split('/')[2] || 'gifs'
 
   useEffect(function () {
     setLoading(true)
     if (!keyword || !lang) {
-      console.log('L', modeToUse)
+      // console.log('L', modeToUse)
     }
     apiObGif({ keyword: keywordToUse, mode: modeToUse, rating, lang })
       .then(res => {

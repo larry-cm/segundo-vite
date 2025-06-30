@@ -2,19 +2,20 @@ import { Favoritos } from './Favoritos'
 
 import Descargar from './Descargar'
 import Copiar from './Copiar'
+import Card from '../Card'
 export default function Enlaces ({ urlDownload, title, mode, elementId, handleAnimateCopyLink, handleAnimateDownload }) {
   return (
-    <ul className='grid '>
+    <Card>
 
-      <li className='flex items-start sm:items-center flex-col gap-4 text-base *:w-44'>
+      <div className='flex items-center justify-center md:flex-col gap-4 text-base *:text-nowrap '>
         <Favoritos mode={mode} elementId={elementId} />
 
         <Copiar urlDownload={urlDownload} handleAnimateCopyLink={handleAnimateCopyLink} />
 
         <Descargar urlDownload={urlDownload} title={title} handleAnimateDownload={handleAnimateDownload} />
-      </li>
+      </div>
 
-    </ul>
+    </Card>
   )
 }
 

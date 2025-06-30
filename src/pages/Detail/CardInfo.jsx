@@ -21,10 +21,9 @@ export default function CardInfo ({ params }) {
   }
 
   if (isLoading) return <Loading />
-  if (isError) return <Redirect to='/404' />
-  if (!singleGif) return <>nos vemos</>
+  if (isError || !singleGif) return <Redirect to='/404' />
   const { url, userInfo, username, title, info, frames } = singleGif
-
+  const viewHeaderCreator = username || userInfo.avatarUrl || userInfo.viewName
   return (
     <>
       <Helmet>
@@ -60,10 +59,10 @@ export default function CardInfo ({ params }) {
         />
         <meta name='twitter:image' content={url} />
       </Helmet>
-      <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 text-text '>
-        <section className=' h-fit col-span-1 md:col-span-2  lg:col-span-1 space-y-4'>
+      <div className='grid grid-cols-1  md:grid-cols-6 gap-4 text-text '>
+        <section className='col-span-2 flex flex-row md:flex-col h-fit gap-4'>
           {
-            (username || userInfo.avatarUrl || userInfo.viewName) && (
+            (viewHeaderCreator) && (
               <Card>
                 <HeaderCreador
                   username={username}
@@ -77,19 +76,19 @@ export default function CardInfo ({ params }) {
           </Card>
         </section>
 
-        <section className=' sm:row-start-2 md:col-start-2 lg:row-start-1  sm:col-span-2 h-fit'>
+        <section className=' col-span-2 h-fit'>
           <Gif
             id={id}
             title={title}
             url={url}
             animateCopyLink={animateCopyLink}
             animateDownload={animateDownload}
-            classAdd='w-full'
+            classAdd='w-full md:h-72'
           />
           <Tags />
         </section>
 
-        <aside className='text-text text-lg h-fit col-span-1 md:col-span-2 lg:col-span-1 '>
+        <aside className='row-start-2 md:row-start-1 md:col-start-5 col-span-2 text-text text-lg h-fit '>
           <Enlaces
             urlDownload={url}
             title={title}

@@ -32,7 +32,7 @@ export default function Descargar ({ title = 'Descarga', handleAnimateDownload, 
       ref={downloadRef}
       onMouseEnter={handleDownloadImg}
       onClick={handleAnimate}
-      className='py-2 px-4 text-text font-semibold transition duration-200 w-fit flex items-center gap-3 group'
+      className='py-2 px-4 flex flex-col md:flex-row text-text-hover/70 transition duration-200 w-fit  items-center gap-x-3 gap-y-1.5 group'
       rel='noopener noreferrer'
     >
       <Download className='group-hover:scale-125 group-hover:text-secondary transition duration-200' />

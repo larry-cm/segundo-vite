@@ -9,10 +9,15 @@ export default function Footer () {
         <span>Curso de react</span>
       </div>
 
-      <div className='flex flex-col gap-2 text-text font-normal w-fit'>
-        <a href='https://github.com/larry-cm' rel='noopener noreferrer' className='text-text-hover hover:text-white transition'>@Larry ceballos</a>
-        <span className='bg-primary  h-0.5 w-full rounded-2xl' />
-        <span className='flex gap-3 justify-center'>
+      <div className='flex flex-col gap-2 text-text font-normal w-fit drop-shadow-primary/70 drop-shadow-2xl'>
+        <a
+          className='text-text-hover hover:text-white transition '
+          href='https://github.com/larry-cm'
+          rel='noopener noreferrer'
+        >@Larry ceballos
+        </a>
+        <span className='bg-primary h-0.5 w-full rounded-2xl ' />
+        <span className='flex gap-3 justify-center '>
           <a href='http://www.linkedin.com/in/larry-moncada-264762305/' target='_blank' rel='noopener noreferrer'>
             <Linkedin className='text-text-hover hover:text-primary hover:scale-110 transition duration-300 cursor-pointer' />
           </a>

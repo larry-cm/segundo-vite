@@ -1,7 +1,6 @@
 import React, { useContext } from 'react'
 import { Search, X } from 'lucide-react'
 
-import { LANGUAGES, languagesArrayInvertido, MODO, RATINGS } from '@/components/Home/Filters/entries'
 import Rating from '@/components/Home/Filters/Rating'
 import Mode from '@/components/Home/Filters/Mode'
 import Lang from '@/components/Home/Filters/Lang'
@@ -9,15 +8,11 @@ import useForm from '@/components/Home/FormGif/useForm'
 import RestartFilters from '@/components/Home/Filters/RestartFilters'
 import FilterContext from '@/context/FilterContext'
 
-const langToUse = languagesArrayInvertido[LANGUAGES.es]
-const ratingToUse = RATINGS[0]
-const modeToUse = MODO[0]
-
 function FormGif ({
-  initialKeyword = '',
-  initialRating = ratingToUse,
-  initialMode = modeToUse,
-  initialLang = langToUse,
+  initialKeyword,
+  initialRating,
+  initialMode,
+  initialLang,
   viewFilters = true
 }) {
   const { filters } = useContext(FilterContext) || {}
