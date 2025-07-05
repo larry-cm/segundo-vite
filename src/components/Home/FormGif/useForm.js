@@ -50,8 +50,9 @@ export default function useForm ({ initialKeyword, initialRating, initialMode, i
       mode: state.mode,
       lang: state.lang
     }))
-  }, [state.query, state.rating, state.mode, state.lang])
+  }, [state.query, state.rating, state.mode, state.lang, setFilters])
   const { query, rating, mode, lang } = state
+
   return {
     query,
     rating,

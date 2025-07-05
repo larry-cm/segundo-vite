@@ -9,13 +9,12 @@ export default function RestartFilters ({ handleRestart }) {
   return (
     <>
       <button
-        aria-label='Puedes borrar todos los filtros recién agregados'
         onClick={restartFilters}
         type='button'
         className='bg-botones relative font-medium  transition text-text capitalize cursor-pointer flex items-center gap-3'
       >
         <ListRestart className=' text-text ' />
-        <span>Quitar filtros</span>
+        <span aria-label='Puedes quitar todos los filtros recién agregados'>Quitar filtros</span>
       </button>
 
       <dialog

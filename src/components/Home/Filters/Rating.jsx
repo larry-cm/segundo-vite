@@ -1,14 +1,11 @@
 import { RATINGS, clasificaciones, clasificacionesAbreviadas } from '@/components/Home/Filters/entries'
 import useClickOut from '@/hooks/useClickOut'
 import { ShieldEllipsis } from 'lucide-react'
-import React from 'react'
+import React, { useCallback } from 'react'
 function Rating ({ handleRating, rating }) {
   const { open, elementRef: buttonOpen, menuRef, handleViewMenu } = useClickOut()
 
-  const submitRating = rating => {
-    console.log(rating.target.value)
-    handleRating(rating.target.value)
-  }
+  const submitRating = useCallback(rating => handleRating(rating.target.value), [])
 
   return (
     <div className='relative'>
@@ -19,7 +16,7 @@ function Rating ({ handleRating, rating }) {
         className='bg-botones text-base font-medium cursor-pointer text-text py-2 px-4 rounded-2xl flex gap-3'
       >
         <ShieldEllipsis className='text-text' />
-        <span>Clasificación</span>
+        <span aria-label='Disponible para filtrar por clasificación'>Clasificación</span>
         <span className='absolute -top-3 right-1  bg-red-500 py-1 px-2 h-5 w-fit flex items-center justify-center lowercase text-xs rounded-full'>{clasificacionesAbreviadas[rating]}</span>
       </button>
 

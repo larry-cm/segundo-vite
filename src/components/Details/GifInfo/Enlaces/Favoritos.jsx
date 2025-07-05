@@ -1,17 +1,24 @@
-import { useState, useCallback } from 'react'
+import { useState } from 'react'
 import { Heart } from 'lucide-react'
+import useEnlaceAnimate from '@/components/Details/GifInfo/Enlaces/useEnlacesAnimate'
 
-export function Favoritos ({ mode, elementId }) {
+export default function Favoritos ({ mode, elementId, handleAnimateFav }) {
   const [fav, setFav] = useState(() => {
     const color = JSON.parse(globalThis.localStorage.getItem(`user-${mode}`)) || []
     return color
   })
 
-  // const colorFav = fav.includes(elementId) ? 'text-red-500' : 'text-text-hover/80'
-  const fillFav = fav.includes(elementId) ? 'fill-primary' : 'fill-transparent'
-  const colorFav = fav.includes(elementId) ? 'text-primary' : 'text-text-hover/70'
+  const isFav = fav.includes(elementId)
+  const fillFav = isFav ? 'fill-primary' : 'fill-transparent'
+  const colorFav = isFav ? 'text-primary' : 'text-text-hover/70'
 
-  const handleFavorites = useCallback(() => {
+  const animateElement = useEnlaceAnimate({
+    handleAnimateCurso: handleAnimateFav,
+    messageAnimate: isFav ? 'Eliminado de favoritos' : 'Agregado a favoritos',
+    messageIcon: Heart
+  })
+
+  const handleFavorites = () => {
     setFav(prev => {
       let newVal
       if (prev.includes(elementId)) newVal = prev.filter(e => e !== elementId)
@@ -19,17 +26,19 @@ export function Favoritos ({ mode, elementId }) {
       globalThis.localStorage.setItem(`user-${mode}`, JSON.stringify(newVal))
       return newVal
     })
-  }, [elementId])
+
+    animateElement()
+  }
 
   return (
     <>
       <button
         type='button'
         onClick={handleFavorites}
-        className='cursor-pointer flex flex-col md:flex-row py-2 px-4 transition duration-200 w-fit items-center gap-x-3 gap-y-1.5 group '
+        className='cursor-pointer flex flex-col md:flex-row p-2 transition duration-200 w-fit items-center gap-x-3 gap-y-1.5 group '
       >
-        <Heart className={`group-hover:scale-125 group-hover:fill-primary group-hover:text-primary transition duration-200 ${fillFav} ${colorFav}`} />
-        <span className={`group-hover:text-primary ${colorFav}`}>favorites</span>
+        <Heart className={`sm:group-hover:scale-125 active:scale-125 sm:group-hover:fill-primary sm:group-hover:text-primary transition duration-200 ${fillFav} ${colorFav}`} />
+        <span className={`sm:group-hover:text-primary ${colorFav}`}>favorites</span>
       </button>
     </>
   )

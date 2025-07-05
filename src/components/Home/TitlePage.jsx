@@ -1,11 +1,14 @@
 import { Link } from 'wouter'
 
-import React from 'react'
+import React, { useContext } from 'react'
+import FilterContext from '@/context/FilterContext'
 function TitlePage () {
+  const { setFilters } = useContext(FilterContext) || {}
+  const handleCleanQuery = (e) => setFilters('')
   return (
     <>
-      <Link to='/' className='w-fit block mb-5 mx-auto'>
-        <h1 aria-label='title-page' className='text-white w-fit  font-bold text-5xl  text-center'>
+      <Link to='/' className='w-fit block mb-5 mx-auto' onClick={handleCleanQuery}>
+        <h1 tabIndex={0} aria-label='title-page' className='text-white w-fit  font-bold text-5xl  text-center'>
           GifClub
         </h1>
       </Link>

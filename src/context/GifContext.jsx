@@ -3,9 +3,9 @@ const Context = React.createContext()
 
 export function GifContextProvider ({ children }) {
   const [gif, updateGif] = useState([])
-  const [mode, setMode] = useState('')
+  const [tag, setTag] = useState(undefined)
   return (
-    <Context.Provider value={{ gif, updateGif, mode, setMode }}>
+    <Context.Provider value={{ gif, updateGif, tag, setTag }}>
       {children}
     </Context.Provider>
   )

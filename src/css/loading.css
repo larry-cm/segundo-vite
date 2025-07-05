@@ -1,41 +1,41 @@
-/* HTML: <div class="loader"></div> */
-.loader {
-  width: 40px;
-  height: 26px;
-  --c: no-repeat linear-gradient(var(--color-primary));
-  background:
-    var(--c) 0 100%,
-    var(--c) 50% 100%,
-    var(--c) 100% 100%;
-  background-size: 8px calc(100% - 4px);
-  position: relative;
-}
-
-.loader:before {
-  content: "";
-  position: absolute;
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: var(--color-primary);
-  left: 0;
-  top: 0;
-  animation:
-    l3-1 1.5s linear infinite alternate,
-    l3-2 0.75s cubic-bezier(0, 200, .8, 200) infinite;
-}
-
-@keyframes l3-1 {
+.loading svg {
+  width: 3.25em;
+  transform-origin: center;
+  animation: rotate4 2s linear infinite;
+ }
+ 
+ .loading circle {
+  fill: none;
+  stroke: hsl(214, 97%, 59%);
+  stroke-width: 2;
+  stroke-dasharray: 1, 200;
+  stroke-dashoffset: 0;
+  stroke-linecap: round;
+  animation: dash4 1.5s ease-in-out infinite;
+ }
+ 
+ @keyframes rotate4 {
   100% {
-    left: calc(100% - 8px)
+   transform: rotate(360deg);
   }
-}
-
-@keyframes l3-2 {
+ }
+ 
+ @keyframes dash4 {
+  0% {
+   stroke-dasharray: 1, 200;
+   stroke-dashoffset: 0;
+  }
+ 
+  50% {
+   stroke-dasharray: 90, 200;
+   stroke-dashoffset: -35px;
+  }
+ 
   100% {
-    top: -0.1px
+   stroke-dashoffset: -125px;
   }
-}
+ }
+ 
 
 /* dialogo */
 

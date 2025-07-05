@@ -1,6 +1,5 @@
 import { Helmet } from 'react-helmet'
 import LazyTrading from '@/components/Home/TrendingSearches/TrendingSearches'
-import FormGif from '@/components/Home/FormGif/FormGif'
 import LastViews from '@/components/Home/LastViews/UltimasVistas'
 import Results from '@/components/Home/Results/Results'
 import Footer from '@/components/Home/Footer'
@@ -29,8 +28,6 @@ export default function Home () {
         <meta name='twitter:image' content='/logo.svg' />
 
       </Helmet>
-
-      <FormGif />
 
       <LastViews />
 

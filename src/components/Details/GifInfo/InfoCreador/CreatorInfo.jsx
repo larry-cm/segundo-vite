@@ -32,7 +32,7 @@ export function HeaderCreador ({
         <div className='text-base font-semibold '>
           <h3 className='w-fit'>{viewName || 'Default name'}</h3>
           <a className='w-fit flex items-center relative' href={instaUrl || webUrl || '#app'} target='_blank' rel='noopener noreferrer'>
-            <span className='flex  items-center text-text-hover/70 transition cursor-pointer hover:text-text-hover truncate max-w-[90%] '>
+            <span className='flex  items-center text-text-hover/70 transition cursor-pointer hover:text-text-hover truncate '>
               @{username || 'Default_name'}
             </span>
             {isVerified && (
@@ -73,15 +73,15 @@ function InfoCreador ({ infoUser }) {
   return (
     <div className='flex h-full items-center gap-2 justify-center'>
 
-      <a className='cursor-pointer p-2 text-text-hover/70 flex gap-1.5 items-center flex-col hover:text-text-hover transition' target='_blank' href={info.sourceRute || 'fuente'} rel='noopener noreferrer'>
+      <a className='cursor-pointer p-2 text-text-hover/70 flex gap-1.5 items-center flex-col hover:text-text-hover transition' target='_blank' href={info?.sourceRute || 'fuente'} rel='noopener noreferrer'>
         <span><Globe /></span>
         <span>Fuente</span>
       </a>
 
-      <BtnDialog text='Embed' Icon={Code} titleHeader='Gift como embed.'>
-        <EmbedShare url={info.embedUrl} />
+      <BtnDialog text=' Embed' Icon={Code} titleHeader='Gift como embed.'>
+        <EmbedShare url={info?.embedUrl} />
       </BtnDialog>
-      <BtnDialog text='Info' titleHeader={articles.title} Icon={Info} buttonBottom>
+      <BtnDialog text='Información' titleHeader={articles?.title} Icon={Info} buttonBottom>
         <InfoGlobs articles={articles} />
       </BtnDialog>
     </div>

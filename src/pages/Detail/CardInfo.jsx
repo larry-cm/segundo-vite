@@ -1,29 +1,42 @@
-import { useState } from 'react'
 import '@/css/download.css'
-import Card from '@/components/Details/GifInfo/Card'
-import InfoCreador, { HeaderCreador } from '@/components/Details/GifInfo/InfoCreador/CreatorInfo'
-import Enlaces from '@/components/Details/GifInfo/Enlaces/Enlaces'
-import Gif from '@/components/Gif/Gif'
-import Tags from '@/components/Details/Tags/Tags'
-import useSingleGif from '@/hooks/useSingleGif'
-import Loading from '@/components/ContentLoad/Loading'
-import { Redirect } from 'wouter'
 import { Helmet } from 'react-helmet'
+import { Redirect } from 'wouter'
+import useSingleGif from '@/hooks/useSingleGif'
 
+import CentralGif from '@/components/Details/sections/CentralGif'
+import Enlaces from '@/components/Details/sections/Enlaces'
+import InfoGif from '@/components/Details/sections/InfoGif'
+
+import useReduceAnimate from '@/pages/Detail/useReduceAnimate'
+import MoreGifs from '@/components/Details/sections/MoreGIfs'
+import Loading from '@/components/ContentLoad/Loading'
+
+import { useRef } from 'react'
 export default function CardInfo ({ params }) {
-  const { id = '' } = params
+  const { id = '', mode = '' } = params
+  const { handleAll, animateState } = useReduceAnimate()
   const { singleGif, isLoading, isError } = useSingleGif({ id })
-  const [animateDownload, setAnimateDownload] = useState(null)
-  const [animateCopyLink, setAnimateCopyLink] = useState(null)
+  const moreComponentsRef = useRef()
 
-  function handleAnimate (message = false, setAnimate) {
-    setAnimate(message)
+  if (isError) return <Redirect to='/404' />
+
+  if (isLoading) {
+    return (
+      <>
+        <Helmet>
+          <title>Cargando... | GifClub</title>
+          <meta name='description' content='Cargando el detalle del gif. Por favor espera...' />
+          <meta property='og:title' content='Cargando... | GifClub' />
+          <meta property='og:description' content='Cargando el detalle del gif. Por favor espera...' />
+          <meta name='robots' content='noindex, nofollow' />
+        </Helmet>
+        <Loading />
+      </>
+    )
   }
 
-  if (isLoading) return <Loading />
-  if (isError || !singleGif) return <Redirect to='/404' />
-  const { url, userInfo, username, title, info, frames } = singleGif
-  const viewHeaderCreator = username || userInfo.avatarUrl || userInfo.viewName
+  const { url, userInfo, username, title } = singleGif || {}
+
   return (
     <>
       <Helmet>
@@ -33,7 +46,7 @@ export default function CardInfo ({ params }) {
           content={
             userInfo?.description
               ? userInfo.description
-              : `Explora el gif "${title}" creado por ${userInfo?.viewName || username || 'un usuario de GifClub'}. Descubre más gifs, descárgalos y comparte fácilmente.`
+              : `Explora el gif "${title}" creado por ${userInfo?.viewName || username || 'un usuario de GifClub'}. Descubre más gifs, guárdalos y compártelos fácilmente.`
           }
         />
         <meta property='og:title' content={title ? `${title} | GifClub` : 'Detalle del Gif | GifClub'} />
@@ -59,33 +72,21 @@ export default function CardInfo ({ params }) {
         />
         <meta name='twitter:image' content={url} />
       </Helmet>
-      <div className='grid grid-cols-1  md:grid-cols-6 gap-4 text-text '>
-        <section className='col-span-2 flex flex-row md:flex-col h-fit gap-4'>
-          {
-            (viewHeaderCreator) && (
-              <Card>
-                <HeaderCreador
-                  username={username}
-                  userInfo={userInfo}
-                />
-              </Card>
-            )
-          }
-          <Card>
-            <InfoCreador infoUser={{ info, username, title, frames }} />
-          </Card>
+
+      <div className='grid grid-cols-1  md:grid-cols-6 gap-4 text-text mb-6'>
+        <section className='col-span-2 flex flex-col sm:flex-row md:flex-col h-fit gap-4'>
+          <InfoGif
+            singleGif={singleGif || {}}
+          />
         </section>
 
-        <section className=' col-span-2 h-fit'>
-          <Gif
+        <section className=' col-span-2 h-fit ' ref={moreComponentsRef}>
+          <CentralGif
+            singleGif={singleGif || {}}
+            animateState={animateState}
             id={id}
-            title={title}
-            url={url}
-            animateCopyLink={animateCopyLink}
-            animateDownload={animateDownload}
-            classAdd='w-full md:h-72'
+            mode={mode}
           />
-          <Tags />
         </section>
 
         <aside className='row-start-2 md:row-start-1 md:col-start-5 col-span-2 text-text text-lg h-fit '>
@@ -93,10 +94,17 @@ export default function CardInfo ({ params }) {
             urlDownload={url}
             title={title}
             elementId={id}
-            handleAnimateCopyLink={message => handleAnimate(message, setAnimateCopyLink)}
-            handleAnimateDownload={message => handleAnimate(message, setAnimateDownload)}
+            handleAnimateAll={handleAll}
           />
         </aside>
+      </div>
+      <div>
+        <MoreGifs
+          moreComponentsRef={moreComponentsRef}
+          id={id}
+          singleGif={singleGif}
+        // mode={mode}
+        />
       </div>
 
     </>

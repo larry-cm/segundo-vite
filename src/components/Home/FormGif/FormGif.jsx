@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { Search, X } from 'lucide-react'
 
 import Rating from '@/components/Home/Filters/Rating'
@@ -7,6 +7,7 @@ import Lang from '@/components/Home/Filters/Lang'
 import useForm from '@/components/Home/FormGif/useForm'
 import RestartFilters from '@/components/Home/Filters/RestartFilters'
 import FilterContext from '@/context/FilterContext'
+import { useLocation } from 'wouter'
 
 function FormGif ({
   initialKeyword,
@@ -17,6 +18,7 @@ function FormGif ({
 }) {
   const { filters } = useContext(FilterContext) || {}
   const { query: queryContext, rating: ratingContext, mode: modeContext, lang: langContext } = filters || {}
+  const pushLocation = useLocation()[1]
 
   const {
     query,
@@ -49,6 +51,10 @@ function FormGif ({
   function handleCleanKeyword () {
     cleanKeyword()
   }
+
+  useEffect(function () {
+    if (queryContext?.length > 3) pushLocation(`/gif/${encodeURIComponent(queryContext?.trim())}/${ratingContext}/${modeContext}/${langContext}`)
+  }, [queryContext, ratingContext, modeContext, langContext])
 
   return (
     <>
