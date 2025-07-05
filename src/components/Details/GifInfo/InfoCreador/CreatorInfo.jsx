@@ -73,15 +73,15 @@ function InfoCreador ({ infoUser }) {
   return (
     <div className='flex h-full items-center gap-2 justify-center'>
 
-      <a className='cursor-pointer p-2 text-text-hover/70 flex gap-1.5 items-center flex-col hover:text-text-hover transition' target='_blank' href={info.sourceRute || 'fuente'} rel='noopener noreferrer'>
+      <a className='cursor-pointer p-2 text-text-hover/70 flex gap-1.5 items-center flex-col hover:text-text-hover transition' target='_blank' href={info?.sourceRute || 'fuente'} rel='noopener noreferrer'>
         <span><Globe /></span>
         <span>Fuente</span>
       </a>
 
       <BtnDialog text=' Embed' Icon={Code} titleHeader='Gift como embed.'>
-        <EmbedShare url={info.embedUrl} />
+        <EmbedShare url={info?.embedUrl} />
       </BtnDialog>
-      <BtnDialog text='Información' titleHeader={articles.title} Icon={Info} buttonBottom>
+      <BtnDialog text='Información' titleHeader={articles?.title} Icon={Info} buttonBottom>
         <InfoGlobs articles={articles} />
       </BtnDialog>
     </div>

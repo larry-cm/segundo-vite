@@ -1,21 +1,30 @@
 import CardVistas from '@/components/ListOfGif/CardVistas'
-export default function ListOfComponent ({ gif, hMin = '' }) {
+import NoResults from '../ContentLoad/NotResults'
+export default function ListOfComponent ({ gif, hMin = '', handleFocusElement }) {
   return (
     <>
-      <div className={`content-column ${hMin || 'min-h-[100vh]'}`}>
-        {
-          gif?.map(({ id, url, title, frames, hash }, index) =>
-            <CardVistas
-              key={`${id}-${hash}-${index}`}
-              id={id}
-              frames={frames}
-              hash={hash}
-              title={title}
-              url={url}
-            />
-          )
-        }
-      </div>
+
+      {
+        gif?.length
+          ? (
+            <div className={`content-column scroll-smooth ${hMin}`}>
+              {
+                gif.map(({ id, url, title, frames, hash }, index) =>
+                  <CardVistas
+                    handleFocusElement={handleFocusElement}
+                    key={`${id}-${hash}-${index}`}
+                    id={id}
+                    frames={frames}
+                    hash={hash}
+                    title={title}
+                    url={url}
+                  />
+                )
+              }
+            </div>)
+          : <NoResults />
+      }
+
     </>
   )
 }

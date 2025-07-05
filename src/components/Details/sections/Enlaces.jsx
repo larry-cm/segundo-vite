@@ -1,25 +1,29 @@
-import { Favoritos } from './Favoritos'
+import Favoritos from '@/components/Details/GifInfo/Enlaces/Favoritos'
+import Descargar from '@/components/Details/GifInfo/Enlaces/Descargar'
+import Copiar from '@/components/Details/GifInfo/Enlaces/Copiar'
+import CompartirWp from '@/components/Details/GifInfo/Enlaces/CompartirWp'
 
-import Descargar from './Descargar'
-import Copiar from './Copiar'
-import Card from '../Card'
-import CompartirWp from './CompartirWp'
+import Card from '@/components/Details/GifInfo/Card'
 
 export default function Enlaces ({
   urlDownload,
   title,
   mode,
   elementId,
-  handleAnimateCopyLink,
-  handleAnimateDownload,
-  handleAnimateShare,
-  handleAnimateFav
+  handleAnimateAll
+
 }) {
+  const {
+    handleAnimateCopyLink,
+    handleAnimateDownload,
+    handleAnimateShare,
+    handleAnimateFav
+  } = handleAnimateAll
   return (
     <Card>
 
-      <div className='flex items-center justify-center md:flex-col gap-2 text-sm md:text-base *:text-wrap md:*:min-w-40'>
-        <div className='flex flex-col sm:flex-row md:flex-col justify-center md:items-start items-center gap-2'>
+      <article className='flex items-center justify-center md:flex-col gap-2 text-sm md:text-base *:text-wrap md:*:min-w-40'>
+        <section className='flex flex-col sm:flex-row md:flex-col justify-center md:items-start items-center gap-2'>
           <Favoritos
             mode={mode}
             handleAnimateFav={handleAnimateFav}
@@ -30,8 +34,9 @@ export default function Enlaces ({
             urlDownload={urlDownload}
             handleAnimateCopyLink={handleAnimateCopyLink}
           />
-        </div>
-        <div className='flex flex-col sm:flex-row md:flex-col justify-center md:items-start items-center gap-2'>
+        </section>
+
+        <section className='flex flex-col sm:flex-row md:flex-col justify-center md:items-start items-center gap-2'>
 
           <Descargar
             title={title}
@@ -44,8 +49,8 @@ export default function Enlaces ({
             urlDownload={urlDownload}
             handleAnimateShare={handleAnimateShare}
           />
-        </div>
-      </div>
+        </section>
+      </article>
 
     </Card>
   )

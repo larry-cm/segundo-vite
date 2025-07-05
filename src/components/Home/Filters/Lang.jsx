@@ -14,14 +14,13 @@ export default function Lang ({ handleLang, lang }) {
     <div className='relative '>
       <button
         ref={elementRef}
-        aria-label='Disponible para filtrar mediante el lenguaje'
         onClick={handleViewMenu}
         type='button'
         style={{ background: open && 'var(--color-primary)' }}
         className='bg-botones relative font-medium  transition text-text capitalize cursor-pointer flex items-center gap-3'
       >
         <Languages className=' text-text ' />
-        <span>lenguaje</span>
+        <span aria-label='Disponible para filtrar mediante el lenguaje'>lenguaje</span>
         <span className='absolute -top-3 right-1  bg-red-500 p-1 size-5 flex items-center justify-center lowercase text-xs rounded-full'>{lang}</span>
       </button>
       {

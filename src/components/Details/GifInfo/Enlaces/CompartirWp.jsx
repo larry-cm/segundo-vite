@@ -20,8 +20,8 @@ export default function CompartirWp ({ urlDownload = '', title = '', handleAnima
       target='_blank'
       className='p-2 text-text-hover/70 flex flex-col md:flex-row transition duration-200 w-fit  items-center gap-x-3 gap-y-1.5 group cursor-pointer active:text-primary'
     >
-      <MessageSquareShare className='group-hover:scale-125 group-hover:text-primary  transition duration-200' />
-      <span className='group-hover:text-primary '>Compartir</span>
+      <MessageSquareShare className='sm:group-hover:scale-125 active:scale-125 sm:group-hover:text-primary  transition duration-200' />
+      <span className='sm:group-hover:text-primary '>Compartir</span>
     </a>
   )
 }

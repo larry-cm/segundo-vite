@@ -3,14 +3,15 @@ import Loading from '@/components/ContentLoad/Loading'
 
 const Gif = lazy(() => import('@/components/Gif/Gif'))
 
-function CardVistas ({ id, frames, hash, title, url }) {
+function CardVistas ({ id, frames, hash, title, url, handleFocusElement }) {
   return (
     <Suspense fallback={<FallGif />}>
       <picture
-        className='h-60 block bg-gradient-to-t from-sky-500 via-secondary to-sky-600 text-text rounded-md '
+        className='h-64 block bg-gradient-to-t from-sky-500 via-secondary to-sky-600 text-text rounded-md '
       >
         <Gif
           id={id}
+          handleFocusElement={handleFocusElement}
           frames={frames}
           hash={hash}
           title={title}
@@ -27,7 +28,7 @@ function CardVistas ({ id, frames, hash, title, url }) {
 
 function FallGif () {
   return (
-    <div className='min-36'>
+    <div className='min-36 flex items-center justify-center'>
       <Loading />
     </div>
   )

@@ -15,7 +15,5 @@ export default function useEnlaceAnimate ({ handleAnimateCurso, messageAnimate =
   useEffect(function () {
     return () => clearTimeout(animateRef.current)
   }, [])
-  return {
-    animateElement
-  }
+  return animateElement
 }

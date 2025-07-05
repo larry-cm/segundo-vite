@@ -16,7 +16,5 @@ export default function useDownloadGif ({ urlDownload, title }) {
       .then(() => { })
       .catch(e => console.error(e))
   }, [])
-  return {
-    downloadRef
-  }
+  return downloadRef
 }

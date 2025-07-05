@@ -1,59 +1,51 @@
-import { useCallback, useState, useEffect } from 'react'
+import { useCallback, useContext, useEffect, useState } from 'react'
+import GifContext from '@/context/GifContext'
+import { apiObGif } from '@/services/apiGetGif'
+import FilterContext from '@/context/FilterContext'
 export default function useLastViews () {
   const [ultimasVistas, setUltimasVistas] = useState(() => {
-    const item = window.localStorage.getItem('lastKeyword')
-    try {
-      return item ? JSON.parse(item) : []
-    } catch {
-      return []
-    }
+    const item = window.localStorage.getItem('lastKeyword') || '[]'
+    return JSON.parse(item)
   })
-  const [indicesRepetidosPorInicio, setIndicesRepetidosPorInicio] = useState([])
+  const { updateGif } = useContext(GifContext) || {}
+  const { filters } = useContext(FilterContext)
+  const { mode, rating, lang } = filters
+  const quitView = useCallback((val) => {
+    setUltimasVistas(prev => {
+      if (!prev) return undefined
+      const updateLastViews = prev?.filter(e => e !== val)
+      window.localStorage.setItem('lastKeyword', JSON.stringify(updateLastViews))
 
-  const changeViews = useCallback((val) => {
-    setUltimasVistas(val)
+      if (!updateLastViews.length) {
+        apiObGif({ mode, rating, lang, keyword: 'random' })
+          .then(res => {
+            // actualizamos el contexto
+            updateGif(res)
+            // actualizamos el local storage.
+            window.localStorage.setItem('lastGifObserver', JSON.stringify(res))
+          })
+        // .catch()
+        window.localStorage.setItem('lastGifObserver', JSON.stringify([]))
+      }
+      return updateLastViews
+    })
   }, [])
 
-  useEffect(() => {
-    if (ultimasVistas.some(item => item.includes('undefined'))) {
-      const filtered = ultimasVistas.filter(item => !item.includes('undefined'))
-      setUltimasVistas(filtered)
-      window.localStorage.setItem('lastKeyword', JSON.stringify(filtered))
-    }
+  useEffect(function () {
   }, [ultimasVistas])
-  // Guarda las diferencias en un estado
-  useEffect(() => {
-    const inicioIndices = {}
-    const diferencias = Array(ultimasVistas.length).fill('')
-    ultimasVistas.forEach((item, idx, arr) => {
-      const partes = item.split('/')
-      const inicio = partes[0]
-      const resto = partes.slice(1)
-
-      if (inicioIndices[inicio] !== undefined) {
-        const idxPrevio = inicioIndices[inicio]
-        const restoPrevio = arr[idxPrevio].split('/').slice(1)
-
-        const diffIndex = resto.findIndex((val, i) => val !== restoPrevio[i])
-        const startDiff = diffIndex === -1 ? resto.length : diffIndex
-
-        diferencias[idxPrevio] = restoPrevio.slice(startDiff).join('/')
-        diferencias[idx] = resto.slice(startDiff).join('/')
-        inicioIndices[inicio] = idx
-      } else {
-        inicioIndices[inicio] = idx
-        diferencias[idx] = ''
-      }
-    })
-    setIndicesRepetidosPorInicio(diferencias)
-  }, [ultimasVistas])
-
   const getTextUrl = useCallback((str) => decodeURIComponent(str).split('/')[0], [ultimasVistas])
+
+  const revisionDuplicados = ultimasVistas
+    .map(el => getTextUrl(el))
+    .filter((item, idx, arr) => arr.indexOf(item) !== idx)
+
+  const viewBadge = useCallback((elMirar) => revisionDuplicados.some(e => e === getTextUrl(elMirar)),
+    [revisionDuplicados])
 
   return {
     ultimasVistas,
-    indicesRepetidosPorInicio,
-    changeViews,
-    getTextUrl
+    quitView,
+    getTextUrl,
+    viewBadge
   }
 }

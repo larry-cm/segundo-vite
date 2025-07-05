@@ -12,7 +12,8 @@
 @layer base{
   body {
     background-color: var(--color-fondo);
-    color: var(--color-primary)
+    color: var(--color-primary);
+   scroll-behavior: smooth;
   }
 }
 
@@ -26,6 +27,10 @@
   .primary-fondo{
     @apply bg-gradient-to-br from-blue-400 via-sky-500 to-blue-500 ;
   }
+  .secondary-fondo{
+    @apply bg-fondo-secondary border border-secondary rounded-2xl hover:text-text-hover transition duration-300
+  }
+  
 }
 
 

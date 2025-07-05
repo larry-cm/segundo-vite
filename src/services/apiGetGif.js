@@ -6,7 +6,6 @@ const fromApiResponseToGif = response => {
   return data?.map(data => {
     const { user, images, title, id, embed_url, username, source, rating, import_datetime, alt_text } = data
     const { url, frames, hash, height, width, size } = images.original
-
     const { avatar_url: avatarUrl, display_name: viewName, description, instagram_url: instaUrl, website_url: webUrl, is_verified: isVerified } = user || {}
 
     return {
